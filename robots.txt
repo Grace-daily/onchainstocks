@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://onchainstocks.guide/sitemap.xml

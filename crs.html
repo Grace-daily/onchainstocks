@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SHGDYVKFVD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-SHGDYVKFVD");
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRS 是什么？共同申报准则与链上美股托管结构的关系 | 链上股票指南</title>
+<meta name="description" content="CRS（共同申报准则）科普：信息交换如何运作、作用于哪类账户；真实股票（券商代持）与代币化股票（自托管钱包）两种链上美股模式在 CRS 框架下的不同位置；以及无论哪种选择都不变的纳税申报义务。">
+<link rel="canonical" href="https://onchainstocks.guide/crs">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon-180.png">
+<meta property="og:title" content="CRS 是什么？共同申报准则与链上美股托管结构的关系">
+<meta property="og:description" content="讲清 CRS 的运作机制、两种托管模式在其中的位置，帮助你在了解规则后自行选择。">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://onchainstocks.guide/crs">
+<meta property="og:image" content="https://onchainstocks.guide/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://onchainstocks.guide/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"CRS 是什么？","acceptedAnswer":{"@type":"Answer","text":"CRS（Common Reporting Standard，共同申报准则）是 OECD 主导的金融账户涉税信息自动交换标准。参与辖区的金融机构每年识别非本地税务居民的账户，将余额与收入信息报送本地税务机关，并交换至账户持有人的税务居民国。中国自 2017 年起参与。CRS 交换的是信息，本身不是一种税。"}},
+    {"@type":"Question","name":"在中心化交易所购买链上美股会涉及 CRS 吗？","acceptedAnswer":{"@type":"Answer","text":"中心化交易所通常要求完成 KYC 实名认证，属于受监管的金融中介。在其属于 CRS 参与辖区的应报送金融机构时，账户信息可能按规则被报送和交换。具体以交易所注册地的法规执行为准。"}},
+    {"@type":"Question","name":"自托管钱包持有代币化股票涉及 CRS 报送吗？","acceptedAnswer":{"@type":"Answer","text":"自托管钱包由用户自行保管私钥，不存在托管你资产的金融机构，因此不产生金融机构层面的 CRS 账户报送。但个人的纳税申报义务来自税法本身，不因持有形式改变而消失。涉及个人税务问题请咨询持牌税务师。"}},
+    {"@type":"Question","name":"选择自托管是不是就不用报税了？","acceptedAnswer":{"@type":"Answer","text":"不是。CRS 影响的只是金融机构层面的信息报送路径；个人境外所得的申报纳税义务来自所在辖区税法，与资产持有形式无关。任何以规避申报义务为目的的安排都可能带来法律后果。"}}
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Noto+Serif+SC:wght@600;900&family=Noto+Sans+SC:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#0080ff;--brand-deep:#005fcc;--brand-soft:#eaf4ff;--brand-soft-2:#d8ecff;--brand-light:#66b3ff;
+  --canvas:#f8fbff;--surface:#f1f7ff;--ink:#101828;--body:#425466;--muted:#6b7a90;--hairline:#d9e6f2;
+  --accent:#7dd3fc;--gold:#a97a14;--gold-bright:#f5b942;--up:#0B7A55;--warn:#9A5B15;
+  /* 别名：沿用原变量名，指向蓝色系统 */
+  --pine:var(--brand-deep);--pine-deep:#004a99;--mint:var(--accent);
+  --glass:rgba(255,255,255,.68);--glass-line:rgba(0,95,204,.12);
+  --shadow:0 2px 6px rgba(16,64,140,.05),0 14px 34px rgba(16,64,140,.08);
+  --shadow-lift:0 4px 10px rgba(16,64,140,.08),0 22px 48px rgba(16,64,140,.13);
+  --display-zh:'Noto Serif SC',serif;--display-en:'Archivo',sans-serif;
+  --sans:'Noto Sans SC','Archivo',sans-serif;--data:'Spline Sans Mono',monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--canvas);color:var(--body);line-height:1.85;font-size:16px}
+h1,h2,h3{color:var(--ink);text-wrap:balance}
+p{text-wrap:pretty}
+.wrap{max-width:1040px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
+
+nav{position:sticky;top:0;background:rgba(248,251,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline);z-index:50}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{width:26px;height:26px}
+.logo .name{font-family:var(--display-zh);font-weight:900;font-size:18px;color:var(--ink)}
+.logo .en{font-family:var(--display-en);font-weight:500;font-size:12px;color:var(--muted);letter-spacing:.04em}
+.nav-links{display:flex;gap:24px;font-size:14px;align-items:center}
+.nav-links a{text-decoration:none;color:var(--muted)}
+.nav-links a:hover{color:var(--pine)}
+.nav-links a.back{color:var(--pine);font-weight:500}
+
+.crumb{padding:22px 0 0;font-size:13px;color:var(--muted)}
+.crumb a{color:var(--pine);text-decoration:none}
+
+.hero{padding:clamp(40px,6vw,64px) 0 clamp(56px,8vw,80px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,64px);align-items:center}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1{font-family:var(--display-zh);font-weight:900;font-size:clamp(28px,4.2vw,44px);line-height:1.42}
+.hero h1 .en{font-family:var(--display-en);font-weight:500;letter-spacing:-.02em;background:linear-gradient(92deg,var(--brand),var(--brand-light));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-lede{margin-top:24px;max-width:33em;font-size:16.5px;line-height:2}
+.hero-art{line-height:0}
+.hero-art svg{width:100%;height:auto;display:block}
+@media(max-width:860px){.hero-art{max-width:420px}}
+
+section{padding:clamp(56px,8vw,88px) 0;border-top:1px solid var(--hairline)}
+h2{font-family:var(--display-zh);font-weight:900;font-size:clamp(23px,3vw,32px);line-height:1.5;margin-bottom:20px;max-width:24em}
+.lede{max-width:44em;margin-bottom:44px;font-size:16px}
+
+.define{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,64px)}
+@media(max-width:820px){.define{grid-template-columns:1fr}}
+.define-main .term{font-family:var(--display-en);font-weight:600;font-size:clamp(38px,5vw,56px);letter-spacing:-.03em;color:var(--pine);line-height:1.05}
+.define-main .term small{display:block;font-family:var(--sans);font-weight:500;font-size:15px;color:var(--muted);margin-top:10px}
+.define-main p{margin-top:26px;font-size:16.5px;line-height:2}
+.define-main p b{color:var(--ink)}
+.define-side{display:flex;flex-direction:column;gap:14px;justify-content:center}
+.note{background:var(--surface);border:1px solid var(--hairline);border-radius:12px;padding:22px 24px}
+.note h3{font-size:15.5px;font-weight:700;margin-bottom:6px}
+.note p{font-size:14px;color:var(--muted)}
+.note .fig{font-family:var(--data);font-size:13px;color:var(--pine);margin-bottom:8px}
+
+/* 信息流 */
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch}
+@media(max-width:760px){.flow{grid-template-columns:1fr}}
+.flow-node{background:#fff;border:1px solid var(--hairline);border-radius:14px;padding:24px 24px 26px}
+.flow-node .stage{font-family:var(--data);font-size:12px;color:var(--gold);margin-bottom:10px}
+.flow-node h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.flow-node p{font-size:13.5px;color:var(--muted)}
+.flow-arrow{display:flex;align-items:center;padding:0 16px;color:var(--pine);font-family:var(--display-en);font-size:20px}
+@media(max-width:760px){.flow-arrow{justify-content:center;transform:rotate(90deg);padding:8px 0}}
+.flow-note{margin-top:26px;background:var(--surface);border:1px solid var(--hairline);border-radius:12px;padding:18px 24px;font-size:14px;max-width:52em}
+.flow-note b{color:var(--ink)}
+
+/* 两种模式在CRS中的位置 */
+.pos{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:800px){.pos{grid-template-columns:1fr}}
+.pos-card{border:1px solid var(--hairline);border-radius:16px;padding:30px 32px;background:#fff}
+.pos-card.hl{background:linear-gradient(180deg,#eaf4ff,#fff 45%);border-color:#b3d9ff}
+.pos-card h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.pos-card .sub{font-size:13px;color:var(--muted);margin-bottom:18px;font-family:var(--data)}
+.pos-card p{font-size:14.5px;margin-bottom:12px}
+.pos-card p b{color:var(--ink)}
+.duty{margin-top:26px;border:1px solid #ecd9a8;background:#fdf6e7;border-radius:12px;padding:22px 26px;max-width:56em}
+.duty h3{font-size:15.5px;font-weight:700;margin-bottom:8px;color:var(--gold)}
+.duty p{font-size:14px}
+
+/* 选项 */
+.opts{display:flex;flex-direction:column}
+.opt{display:grid;grid-template-columns:180px 1fr;gap:24px;padding:26px 4px;border-top:1px solid var(--hairline)}
+.opt:last-child{border-bottom:1px solid var(--hairline)}
+@media(max-width:640px){.opt{grid-template-columns:1fr;gap:8px}}
+.opt .tag{font-family:var(--data);font-size:13px;color:var(--pine);padding-top:4px}
+.opt h3{font-size:16.5px;font-weight:700;margin-bottom:6px}
+.opt h3 .chip{display:inline-block;font-family:var(--sans);font-size:11px;font-weight:500;color:var(--pine);background:#e5f1ff;border-radius:99px;padding:3px 10px;margin-left:10px;vertical-align:2px}
+.opt p{font-size:14.5px;color:var(--body);max-width:46em}
+.opt p a{color:var(--pine)}
+
+details{border-bottom:1px solid var(--hairline)}
+details:first-of-type{border-top:1px solid var(--hairline)}
+summary{cursor:pointer;padding:22px 4px;font-weight:500;font-size:16px;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--display-en);color:var(--pine);font-size:20px;flex:none;transition:transform .2s cubic-bezier(.22,1,.36,1)}
+details[open] summary::after{transform:rotate(45deg)}
+details .a{padding:0 4px 24px;font-size:14.5px;max-width:48em}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}.fx{display:none}}
+.flowline{stroke-dasharray:4 8;stroke-linecap:round;animation:dashflow 1.2s linear infinite}
+@keyframes dashflow{to{stroke-dashoffset:-12}}
+@media(prefers-reduced-motion:reduce){.flowline{stroke-dasharray:none}}
+
+.back-band{background:var(--pine);border-radius:20px;padding:clamp(34px,5vw,50px);color:#E9F4F2;display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.back-band h2{color:#fff;margin:0;font-size:clamp(20px,2.6vw,26px)}
+.back-band p{color:#B9D4CF;font-size:14.5px;max-width:34em}
+.btn{display:inline-block;padding:14px 30px;font-size:15px;font-weight:500;text-decoration:none;border-radius:8px;transition:transform .18s cubic-bezier(.22,1,.36,1),box-shadow .18s}
+.btn-light{background:#fff;color:var(--pine-deep)}
+.btn-light:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.28)}
+
+footer{background:var(--surface);border-top:1px solid var(--hairline);padding:48px 0 56px;font-size:13px;color:var(--muted)}
+.disclaimer{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:22px 26px;margin-bottom:28px;line-height:2}
+.disclaimer strong{color:var(--ink)}
+footer a{color:var(--brand-deep)}
+
+/* ── 蓝色系统精修 + 与主页统一的质感 ── */
+.hero{position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(16,64,140,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(16,64,140,.045) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:radial-gradient(75% 90% at 40% 20%,#000 30%,transparent 78%)}
+.hero::after{content:"";position:absolute;top:-160px;right:-120px;width:520px;height:520px;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(0,128,255,.12),transparent 70%)}
+.hero .wrap{position:relative}
+.hero-art{background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--glass-line);border-radius:20px;box-shadow:var(--shadow);padding:10px;line-height:0}
+.note,.flow-node,.pos-card,.opt-wrap{transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.note:hover,.flow-node:hover,.pos-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.flow-node,.pos-card{box-shadow:var(--shadow);border-color:var(--glass-line)}
+.note{box-shadow:var(--shadow)}
+.define-main .term{color:var(--brand-deep)}
+.note .fig,.flow-node .stage{color:var(--brand-deep)}
+.flow-node .stage{color:var(--gold)}
+.opt .tag,.opt p a,.crumb a{color:var(--brand-deep)}
+.pos-card .sub{color:var(--muted)}
+summary::after{color:var(--brand)}
+.btn-pri{display:inline-block;padding:14px 30px;font-size:15px;font-weight:500;text-decoration:none;border-radius:10px;
+  background:linear-gradient(135deg,var(--brand),var(--brand-deep));color:#fff;box-shadow:0 6px 18px rgba(0,128,255,.28);
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.btn-pri:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,128,255,.34)}
+.btn-soft{display:inline-block;padding:14px 30px;font-size:15px;font-weight:500;text-decoration:none;border-radius:10px;
+  background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.34);backdrop-filter:blur(6px);
+  transition:transform .2s var(--ease),background .2s var(--ease)}
+.btn-soft:hover{transform:translateY(-2px);background:rgba(255,255,255,.22)}
+.back-band{background:linear-gradient(135deg,#0a66d6,#004a99);border-radius:22px;box-shadow:0 18px 44px rgba(0,95,204,.25)}
+.back-band .band-cta{display:flex;gap:12px;flex-wrap:wrap}
+/* 光标聚光灯（与主页一致） */
+.note,.flow-node,.pos-card,.opt{position:relative;overflow:hidden}
+.note::before,.flow-node::before,.pos-card::before,.opt::before{content:"";position:absolute;inset:0;opacity:0;pointer-events:none;
+  transition:opacity .35s var(--ease);
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(0,128,255,.10),transparent 65%)}
+.note:hover::before,.flow-node:hover::before,.pos-card:hover::before,.opt:hover::before{opacity:1}
+/* scroll reveal（JS 添加 .pre 后再入场，无 JS 不隐藏内容） */
+.pre{opacity:0;transform:translateY(22px)}
+.pre.in{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+</style>
+</head>
+<body>
+
+<nav aria-label="主导航">
+  <div class="wrap">
+    <a class="logo" href="./index.html" aria-label="链上股票指南首页">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="#005fcc" stroke-width="2.5"/><path d="M20.5 11.5 L18 18 L11.5 20.5 L14 14 Z" fill="#005fcc"/><circle cx="16" cy="16" r="1.8" fill="#f5b942"/></svg>
+      <span class="name">链上股票指南</span><span class="en">ONSTOCK GUIDE</span>
+    </a>
+    <div class="nav-links">
+      <a href="./index.html#types">两种类型</a>
+      <a href="./index.html#where">平台对比</a>
+      <a class="back" href="./index.html">← 返回链上股票指南</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap crumb"><a href="./index.html">链上股票指南</a> / CRS 专题</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <h1><span class="en">CRS</span> 与托管结构：把这层关系讲清楚，你才好做选择</h1>
+      <p class="hero-lede">在真实股票和代币化股票之间犹豫的投资者，很多时候真正想弄懂的是：托管结构和 CRS 到底是什么关系？这一页只做一件事——把规则如实讲清。理解之后，选托管模式还是自托管钱包，答案在你自己手里。先把结论放在最前面：<b style="color:var(--ink)">自托管改变的只是机构账户的报送路径，不改变你个人依法申报的义务。</b></p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="示意图：金融机构账户在 CRS 报送范围内并向税务机关报送信息；自托管钱包不属于传统金融机构托管账户">
+        <!-- 报送范围：左侧区域 -->
+        <rect x="18" y="30" width="244" height="262" rx="18" fill="#f1f7ff" stroke="#d9e6f2" stroke-width="1.5"/>
+        <text x="40" y="62" font-family="Spline Sans Mono" font-size="11" fill="#6b7a90">CRS 报送范围 · in scope</text>
+        <!-- 税务机关 -->
+        <rect x="60" y="84" width="160" height="52" rx="10" fill="#fff" stroke="#c6d6ea" stroke-width="1.5"/>
+        <text x="140" y="106" text-anchor="middle" font-family="Noto Sans SC" font-size="13" fill="#425466">税务机关</text>
+        <text x="140" y="124" text-anchor="middle" font-family="Spline Sans Mono" font-size="9.5" fill="#7d93b3">年度信息交换</text>
+        <!-- 报送流动线：账户 → 税务机关 -->
+        <path class="flowline" d="M140 202 V148" stroke="#005fcc" stroke-width="2" fill="none"/>
+        <path d="M140 142 l-5 8 h10z" fill="#005fcc"/>
+        <circle class="fx" r="3.5" fill="#005fcc"><animateMotion dur="1.8s" repeatCount="indefinite" path="M140 202 V146"/></circle>
+        <!-- 金融机构账户 -->
+        <rect x="60" y="202" width="160" height="66" rx="10" fill="#fff" stroke="#c6d6ea" stroke-width="1.5"/>
+        <text x="140" y="230" text-anchor="middle" font-family="Noto Sans SC" font-size="13" fill="#425466">金融机构账户</text>
+        <text x="140" y="250" text-anchor="middle" font-family="Spline Sans Mono" font-size="9.5" fill="#7d93b3">bank · broker · CEX</text>
+        <!-- 范围之外：自托管钱包 -->
+        <text x="342" y="62" text-anchor="middle" font-family="Spline Sans Mono" font-size="11" fill="#4d82c4">非传统金融账户路径</text>
+        <rect x="284" y="180" width="116" height="88" rx="12" fill="#eaf4ff" stroke="#66b3ff" stroke-width="1.5" stroke-dasharray="6 5"/>
+        <text x="342" y="216" text-anchor="middle" font-family="Noto Sans SC" font-size="13" fill="#005fcc">自托管钱包</text>
+        <text x="342" y="236" text-anchor="middle" font-family="Spline Sans Mono" font-size="9.5" fill="#4d82c4">self-custody</text>
+        <text x="342" y="256" text-anchor="middle" font-family="Noto Sans SC" font-size="10" fill="#4d82c4">无托管机构账户*</text>
+        <!-- 断开的连接：短线 + 端点，表达"没有报送路径" -->
+        <path d="M342 176 V148" stroke="#66b3ff" stroke-width="1.6" stroke-dasharray="3 6" stroke-linecap="round" fill="none"/>
+        <circle cx="342" cy="142" r="4" fill="none" stroke="#66b3ff" stroke-width="1.6"/>
+        <path d="M339 145 l6 -6" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="what">
+  <div class="wrap define">
+    <div class="define-main">
+      <p class="term">CRS<small>Common Reporting Standard · 共同申报准则</small></p>
+      <p>CRS 是 OECD 主导的<b>金融账户涉税信息自动交换标准</b>：参与辖区的金融机构每年识别非本地税务居民的账户，把余额、利息、股息等信息报送本地税务机关，再自动交换到账户持有人的税务居民国。理解它只需要抓住两点——它交换的是<b>信息</b>而非税款，它作用的对象是<b>金融机构托管的账户</b>。</p>
+    </div>
+    <div class="define-side">
+      <div class="note"><p class="fig">2017 —</p><h3>中国已参与交换</h3><p>中国自 2017 年起参与 CRS，与百余个辖区（含中国香港、新加坡等）开展年度信息交换。</p></div>
+      <div class="note"><p class="fig">≠ TAX</p><h3>它不是一种新税</h3><p>是否产生税款取决于税法而非 CRS。如实申报的投资者，在 CRS 前后并无实质区别。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="wrap">
+    <h2>信息是怎样流动的</h2>
+    <p class="lede">以你在某 CRS 参与辖区的交易所或券商开立账户为例，信息按年度沿以下路径流动。整个过程不需要你操作，也不自动产生税款——它只是让税务机关"看得到"。</p>
+    <div class="flow">
+      <div class="flow-node"><p class="stage">识别</p><h3>金融机构</h3><p>开户时收集税务居民自我证明，识别账户持有人的税务居民辖区。</p></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-node"><p class="stage">报送</p><h3>机构所在地税务机关</h3><p>机构按年度将应报送账户的余额与收入信息提交本地主管当局。</p></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-node"><p class="stage">交换</p><h3>你的税务居民国</h3><p>信息通过辖区间自动交换机制传回，用于税收征管参考。</p></div>
+    </div>
+    <p class="flow-note"><b>关键点：</b>这条链路的起点是"金融机构替你管着账户"。链路是否存在，取决于你选择的托管结构——这正是它与链上美股两种模式产生关联的地方。</p>
+  </div>
+</section>
+
+<section id="position">
+  <div class="wrap">
+    <h2>两种模式在 CRS 框架中的位置</h2>
+    <p class="lede">回到<a href="./index.html#types" style="color:var(--pine)">主页介绍的两种类型</a>：它们在 CRS 框架中处于不同位置，原因不在"链上"两个字，而在托管结构本身。</p>
+    <div class="pos">
+      <article class="pos-card">
+        <h3>真实股票 / 交易所内的代币化股票</h3>
+        <p class="sub">机构托管 · KYC 账户</p>
+        <p>你在交易所或券商处持有 <b>KYC 实名账户</b>，机构替你托管资产——这正是 CRS 报送框架作用的账户类型。</p>
+        <p>当机构属于参与辖区的应报送金融机构时，你的账户信息可能按规则被报送和交换。对如实申报的投资者，这只是信息透明，<b>不构成额外负担</b>；换来的是 SIPC 等传统投资者保护（具体层级见主页表一）。</p>
+      </article>
+      <article class="pos-card hl">
+        <h3>代币化股票 + 自托管钱包</h3>
+        <p class="sub">私钥自持 · 地址即账户</p>
+        <p>你的股票代币存放在<b>自己的钱包地址</b>，没有金融机构替你托管账户，因此不产生机构层面的 CRS 账户报送。</p>
+        <p>但要看清这句话的边界：它描述的是<b>报送路径的差异</b>，不是纳税义务的豁免；同时你放弃了机构托管带来的保护层，钱包安全完全由自己负责。</p>
+      </article>
+    </div>
+    <div class="duty">
+      <h3>无论选哪种，都不会改变的一件事</h3>
+      <p>个人境外所得的申报纳税义务来自你所在辖区的税法，与资产形态、托管方式无关。CRS 只影响税务机关"通过什么路径看到信息"，不影响义务本身。任何以规避申报义务为目的的安排都可能带来滞纳金、罚款乃至更严重的法律后果。涉及个人申报的具体问题，请咨询持牌税务师。</p>
+    </div>
+  </div>
+</section>
+
+<section id="options">
+  <div class="wrap">
+    <h2>理解规则之后：自托管路径的几种走法</h2>
+    <p class="lede">如果你权衡后倾向"私钥自持"这一侧，以下是目前的主要走法，按上手难度排列。选择哪一种，取决于你对链上操作的熟悉程度。</p>
+    <div class="opts">
+      <div class="opt">
+        <span class="tag">CEX + 提币</span>
+        <div><h3>交易所买入，提到自己钱包</h3><p>在 Kraken、Bybit、Gate 等上线 xStocks 的交易所购买后，将支持提币的代币转入自托管钱包。经过 KYC 账户环节，适合已有交易所账号的用户。</p></div>
+      </div>
+      <div class="opt">
+        <span class="tag">链上 DEX</span>
+        <div><h3>钱包直连去中心化交易所</h3><p>用自托管钱包在公链 DEX 上直接将稳定币兑换为代币化股票，全程链上。灵活但需要自己处理滑点、路由与钓鱼风险，适合链上熟手。</p></div>
+      </div>
+      <div class="opt">
+        <span class="tag">钱包平台</span>
+        <div><h3>自托管钱包交易平台<span class="chip">如 DeGate</span></h3><p>DeGate 等平台以自托管钱包为基础提供接近交易所的交易体验：钱包直连兑换代币化美股，资产始终在自己地址中，另有区间流动性（LP）等 DeFi 用法。同类选择还包括各主流钱包内置的兑换功能，可自行比较费率与体验。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>关于 CRS 的高频问答</h2>
+    <details>
+      <summary>CRS 会直接让我多交税吗？</summary>
+      <div class="a">不会。CRS 交换的是账户信息而非税款，是否产生纳税义务取决于你的税务居民身份和所得性质。对已如实申报的投资者，CRS 不带来额外负担。</div>
+    </details>
+    <details>
+      <summary>美国券商的账户会被 CRS 交换吗？</summary>
+      <div class="a">美国没有加入 CRS，而是执行自己的 FATCA 制度，信息交换的方向和范围与 CRS 不同——但这不等于"完全不透明"，两套制度并行存在。</div>
+    </details>
+    <details>
+      <summary>加密资产会一直在 CRS 之外吗？</summary>
+      <div class="a">不会。OECD 已推出针对加密资产的申报框架 CARF，各辖区正逐步落地，托管型加密服务商将被纳入信息申报。"某类资产完全不透明"的状态在持续收窄，做长期决策时应把这一趋势考虑在内。</div>
+    </details>
+    <details>
+      <summary>选自托管钱包是不是就不用报税了？</summary>
+      <div class="a">不是。自托管改变的只是"是否存在机构层面的账户报送"这一条路径；个人申报纳税义务来自税法本身，与持有形式无关。请依法申报，具体问题咨询持牌税务师。</div>
+    </details>
+    <details>
+      <summary>信息交换回来之后会发生什么？</summary>
+      <div class="a">税务机关将交换信息用于征管参考，例如与你的申报记录比对。对如实申报的投资者，通常不会有任何额外动作。</div>
+    </details>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="back-band">
+      <div>
+        <h2>两个方向，随你继续</h2>
+        <p>如果你是从 CRS 进来的，链上股票指南整理了两种模式的完整平台对比；如果你已经了解链上股票，可以直接跳到"如何选择"的决策框架。</p>
+      </div>
+      <div class="band-cta">
+        <a class="btn-pri" href="./index.html#where">查看平台对比 →</a>
+        <a class="btn-soft" href="./index.html#choose">如何选择 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>重要提示：</strong>链上股票指南为独立信息科普页面，与文中提及的任何平台均无隶属关系，提及具体平台仅为客观说明，不构成推荐。本页为一般性信息介绍，不构成税务、法律或投资建议；CRS 及 CARF 相关规则以各辖区主管机关的现行规定为准；个人申报纳税义务不因资产持有形式而免除，具体问题请咨询持牌税务师。请在遵守你所在地法律法规的前提下参与相关交易。
+    </div>
+    <p>© 2026 链上股票指南 · <a href="./index.html">返回链上美股指南</a></p>
+  </div>
+</footer>
+
+<script>
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(!reduce&&"IntersectionObserver"in window){
+  const els=document.querySelectorAll("main>section .wrap, .hero .wrap");
+  els.forEach(el=>el.classList.add("pre"));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1});
+  els.forEach(el=>io.observe(el));
+  document.addEventListener("pointermove",e=>{
+    const t=e.target.closest(".note,.flow-node,.pos-card,.opt");
+    if(!t)return;
+    const r=t.getBoundingClientRect();
+    t.style.setProperty("--mx",(e.clientX-r.left)+"px");
+    t.style.setProperty("--my",(e.clientY-r.top)+"px");
+  },{passive:true});
+}
+</script>
+</body>
+</html>
