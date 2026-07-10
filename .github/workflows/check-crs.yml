@@ -1,0 +1,61 @@
+name: 每月检查 CRS 政策信源更新
+
+on:
+  schedule:
+    # 每月 1 日北京时间上午 9 点（UTC 1 点）
+    - cron: "0 1 1 * *"
+  workflow_dispatch: {}   # 允许手动触发测试
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 运行 CRS 信源比对脚本
+        id: check
+        run: |
+          set +e
+          python3 scripts/check_crs_sources.py
+          code=$?
+          set -e
+          if [ "$code" = "42" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          elif [ "$code" != "0" ]; then
+            exit $code
+          fi
+
+      - name: 提交新快照
+        run: |
+          git config user.name "crs-monitor"
+          git config user.email "actions@users.noreply.github.com"
+          git add scripts/snapshots/ || true
+          git diff --cached --quiet || (git commit -m "chore: 更新 CRS 信源快照" && git push)
+
+      - name: 有变化时创建 Issue 提醒
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.existsSync('crs-diff.md') ? fs.readFileSync('crs-diff.md','utf8') : '(diff 为空)';
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🏛️ CRS 政策信源有更新（${new Date().toISOString().slice(0,10)}）`,
+              body: [
+                '监控脚本检测到以下 OECD 官方页面内容发生变化。',
+                '',
+                '**请人工判断**是否属于实质性政策变化（新辖区加入交换、CRS/CARF 文本修订、新指引发布等），',
+                '如需要，请在 `crs.html` 中补充或修订相关内容（注意保持合规措辞）：',
+                '',
+                body.slice(0, 6000),
+                '',
+                '仅为页面排版调整、无实质变化时可直接关闭本 Issue。'
+              ].join('\n')
+            });
