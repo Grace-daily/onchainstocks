@@ -103,10 +103,114 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .btn-ghost{background:var(--glass);border:1px solid var(--glass-line);color:var(--ink);backdrop-filter:blur(8px)}
 .btn-ghost:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
 
-/* hero 双轨视觉 */
-.hero-viz{position:relative}
-.viz-frame{position:relative;background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--glass-line);border-radius:22px;box-shadow:var(--shadow);padding:10px}
-.viz-frame svg{width:100%;height:auto;display:block;border-radius:14px}
+/* hero 滚动叙事图示 */
+.hero-viz{position:relative;width:100%;max-width:560px;margin:0 0 0 auto}
+.story-diagram{position:relative;height:470px;border:1px solid rgba(0,128,255,.17);border-radius:28px;overflow:hidden;background:radial-gradient(circle at 50% 28%,rgba(0,128,255,.11),transparent 32%),linear-gradient(145deg,rgba(255,255,255,.96),rgba(240,247,255,.9));box-shadow:0 28px 70px rgba(16,64,140,.14);isolation:isolate}
+.story-diagram::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(rgba(0,95,204,.1) .8px,transparent .8px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000,transparent 76%)}
+.story-topline{position:absolute;top:22px;left:24px;right:24px;display:flex;align-items:center;justify-content:space-between;font-family:var(--data);font-size:9px;letter-spacing:.14em;color:#7590af}
+.story-topline b{font-weight:500;color:var(--teal)}
+.scroll-cue{display:flex;align-items:center;gap:6px;transition:opacity .4s var(--ease)}
+.scroll-cue::before{content:"";width:5px;height:5px;border-radius:50%;background:#f5b942;box-shadow:0 0 0 4px rgba(245,185,66,.13)}
+.story-canvas{position:absolute;inset:46px 24px 58px}
+.market-core{position:absolute;z-index:4;top:44px;left:50%;width:132px;height:132px;transform:translateX(-50%);display:grid;place-content:center;text-align:center;border:1px solid rgba(0,128,255,.32);border-radius:50%;background:linear-gradient(145deg,#fff,#eaf5ff);box-shadow:0 15px 36px rgba(0,95,204,.16),inset 0 0 0 10px rgba(255,255,255,.6);transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.market-core::before{content:"";position:absolute;inset:-9px;border:1px dashed rgba(0,128,255,.24);border-radius:50%;animation:slowspin 18s linear infinite}
+@keyframes slowspin{to{transform:rotate(360deg)}}
+.market-core small{font-family:var(--data);font-size:9px;letter-spacing:.13em;color:var(--teal)}
+.market-core b{margin-top:5px;font-size:17px;color:var(--ink)}
+.ticker{position:absolute;z-index:5;display:grid;place-items:center;width:42px;height:42px;border:1px solid #cfe1f4;border-radius:50%;background:rgba(255,255,255,.95);box-shadow:0 8px 20px rgba(16,64,140,.09);font-family:var(--data);font-size:8.5px;font-weight:600;color:#2f6cad;animation:floaty 5s ease-in-out infinite}
+.ticker-a{top:49px;left:17%}.ticker-t{top:35px;right:16%;animation-delay:-1.2s}.ticker-n{top:132px;left:11%;animation-delay:-2.5s}.ticker-s{top:142px;right:10%;animation-delay:-3.7s}
+@keyframes floaty{50%{transform:translateY(-5px)}}
+.story-trunk,.story-cross,.story-drop{position:absolute;z-index:2;background:#9fcbf7;transition:transform .65s var(--ease),background .25s}
+.story-trunk{top:174px;left:50%;width:2px;height:43px;transform:scaleY(0);transform-origin:top}
+.story-cross{top:215px;left:25%;width:50%;height:2px;transform:scaleX(0);transform-origin:center}
+.story-drop{top:215px;width:2px;height:36px;transform:scaleY(0);transform-origin:top}
+.story-drop-real{left:25%}.story-drop-token{left:75%}
+.route{position:absolute;z-index:4;top:250px;width:154px;height:90px;visibility:hidden;transform:translateY(18px) scale(.96);opacity:0;border:1px solid #d8e6f4;border-radius:18px;background:rgba(255,255,255,.94);box-shadow:0 12px 28px rgba(16,64,140,.1);font:inherit;color:var(--ink);cursor:pointer;transition:opacity .5s var(--ease),transform .5s var(--ease),border-color .25s,box-shadow .25s,filter .25s}
+.route-real{left:25%;margin-left:-77px}.route-token{left:75%;margin-left:-77px;border-color:rgba(0,128,255,.34);background:linear-gradient(145deg,#fff,#eaf5ff)}
+.route-icon{display:grid;place-items:center;width:30px;height:30px;margin:0 auto 7px;border-radius:9px;background:#edf4fb;color:#54769b;font-family:var(--data);font-size:15px}
+.route-token .route-icon{background:#dcedff;color:var(--teal)}
+.route b{display:block;font-size:15px}.route small{display:block;margin-top:2px;font-size:10px;color:#7890aa}
+.route:hover,.route:focus-visible,.route[aria-pressed="true"]{outline:none;transform:translateY(-3px)!important;border-color:var(--teal);box-shadow:0 18px 36px rgba(0,128,255,.18)}
+.route-detail{position:absolute;z-index:3;top:349px;display:flex;gap:5px;transform:translateY(8px);opacity:0;transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.detail-real{left:25%;transform:translate(-50%,8px)}.detail-token{left:75%;transform:translate(-50%,8px)}
+.route-detail span{white-space:nowrap;border:1px solid #dbe7f3;border-radius:99px;padding:4px 7px;background:rgba(255,255,255,.8);font-size:9px;color:#607b9b}
+.story-caption{position:absolute;left:24px;right:24px;bottom:20px;text-align:center;transform:translateY(8px);opacity:0;font-size:12px;font-weight:600;letter-spacing:.04em;color:#3f6189;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.story-caption strong{color:var(--teal)}
+.story-progress{position:absolute;left:24px;bottom:23px;display:flex;gap:4px}
+.story-progress i{display:block;width:18px;height:2px;border-radius:99px;background:#d9e5f1;transition:background .3s,width .3s}
+.story-diagram[data-stage="1"] .story-trunk,.story-diagram[data-stage="2"] .story-trunk,.story-diagram[data-stage="3"] .story-trunk{transform:scaleY(1)}
+.story-diagram[data-stage="1"] .story-cross,.story-diagram[data-stage="2"] .story-cross,.story-diagram[data-stage="3"] .story-cross{transform:scaleX(1);transition-delay:.16s}
+.story-diagram[data-stage="1"] .story-drop,.story-diagram[data-stage="2"] .story-drop,.story-diagram[data-stage="3"] .story-drop{transform:scaleY(1);transition-delay:.42s}
+.story-diagram[data-stage="2"] .route,.story-diagram[data-stage="3"] .route{visibility:visible;opacity:1;transform:none}
+.story-diagram[data-stage="2"] .route-token,.story-diagram[data-stage="3"] .route-token{transition-delay:.12s}
+.story-diagram[data-stage="3"] .route-detail{opacity:1}.story-diagram[data-stage="3"] .detail-real{transform:translate(-50%,0)}.story-diagram[data-stage="3"] .detail-token{transform:translate(-50%,0)}
+.story-diagram[data-stage="3"] .story-caption{opacity:1;transform:none}
+.story-diagram[data-stage="1"] .scroll-cue,.story-diagram[data-stage="2"] .scroll-cue,.story-diagram[data-stage="3"] .scroll-cue{opacity:0}
+.story-diagram[data-stage="1"] .story-progress i:first-child,.story-diagram[data-stage="2"] .story-progress i:not(:last-child),.story-diagram[data-stage="3"] .story-progress i{background:var(--teal)}
+.story-diagram[data-focus="real"] .route-token,.story-diagram[data-focus="token"] .route-real{opacity:.35;filter:saturate(.2)}
+.story-diagram[data-focus="real"] .story-drop-real,.story-diagram[data-focus="token"] .story-drop-token{background:var(--teal)}
+.story-diagram[data-focus="real"] .detail-real span,.story-diagram[data-focus="token"] .detail-token span{border-color:rgba(0,128,255,.4);color:#1d67b3;background:#eef7ff}
+@media(min-width:901px) and (min-height:700px){.story-hero{min-height:calc(100vh + 260px);padding-top:70px;padding-bottom:40px}.story-hero>.wrap{position:sticky;top:92px}}
+@media(max-width:900px){.hero-viz{margin:12px auto 0;width:100%}.story-diagram{height:450px}}
+@media(max-width:520px){.story-diagram{height:430px;border-radius:22px}.story-canvas{inset:42px 12px 54px}.story-topline{left:18px;right:18px}.market-core{top:42px;width:116px;height:116px}.ticker{width:36px;height:36px}.ticker-a{left:7%}.ticker-t{right:7%}.ticker-n{left:2%}.ticker-s{right:2%}.route{top:235px;width:132px;height:86px}.route-real{margin-left:-66px}.route-token{margin-left:-66px}.story-trunk{top:158px}.story-cross{top:199px}.story-drop{top:199px;height:36px}.route-detail{top:330px}.story-caption{bottom:18px;font-size:11px}.story-progress{display:none}}
+@media(prefers-reduced-motion:reduce){.market-core::before,.ticker{animation:none}}
+
+/* ── V6 电影感首屏 ── */
+.cinematic-hero{--cinema-scale:1.04;--cinema-x:0%;--cinema-copy-y:0px;--cinema-copy-opacity:1;min-height:calc(100vh + 420px);padding:0;background:#07182d;color:#fff;overflow:visible}
+.cinematic-hero::before,.cinematic-hero::after{display:none}
+.cinema-stage{position:sticky;top:64px;height:calc(100vh - 64px);min-height:650px;overflow:hidden;isolation:isolate;background:#07182d}
+.cinema-media{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.cinema-media img{width:100%;height:100%;object-fit:cover;object-position:center;transform:translate3d(var(--cinema-x),0,0) scale(var(--cinema-scale));filter:saturate(.9) contrast(1.04);transition:filter .5s}
+.cinema-media::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(4,18,36,.96) 0%,rgba(5,20,39,.82) 31%,rgba(6,24,47,.38) 55%,rgba(4,18,36,.08) 78%),linear-gradient(0deg,rgba(3,15,30,.6),transparent 42%)}
+.cinema-media::after{content:"";position:absolute;inset:-20% -10%;z-index:2;background:linear-gradient(112deg,transparent 40%,rgba(104,190,255,.13) 49%,transparent 58%);transform:translateX(-38%);transition:transform 1.2s var(--ease)}
+.cinematic-hero[data-stage="2"] .cinema-media::after{transform:translateX(32%)}
+.cinema-stage>.wrap{position:relative;z-index:3;display:flex;height:100%;align-items:center}
+.cinematic-hero .hero-copy{max-width:760px;transform:translateY(var(--cinema-copy-y));opacity:var(--cinema-copy-opacity);will-change:transform,opacity}
+.cinematic-hero .kicker{color:#bfe1ff;background:rgba(14,70,121,.42);border-color:rgba(135,199,255,.28);backdrop-filter:blur(12px)}
+.cinematic-hero .kicker .dot{background:#78c4ff}
+.cinematic-hero h1{max-width:12em;font-size:clamp(42px,5vw,72px);line-height:1.26;color:#fff;text-shadow:0 8px 30px rgba(0,0,0,.25)}
+.cinematic-hero h1 mark{background:linear-gradient(92deg,#67bdff,#b9e3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cinematic-hero .hero-lede{max-width:38em;margin-top:26px;color:rgba(227,240,252,.78);font-size:16px;line-height:1.9}
+.cinematic-hero .hero-cta{margin-top:30px}
+.cinematic-hero .btn-navy{background:#fff;color:#0b2746;box-shadow:0 12px 34px rgba(0,0,0,.24)}
+.cinematic-hero .btn-navy:hover{box-shadow:0 17px 40px rgba(0,0,0,.3)}
+.cinematic-hero .btn-ghost{color:#fff;background:rgba(9,39,70,.38);border-color:rgba(255,255,255,.26);backdrop-filter:blur(14px)}
+.cinema-transition{position:absolute;z-index:4;right:clamp(28px,6vw,110px);bottom:clamp(90px,12vh,140px);display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.cinema-transition span{font-family:var(--data);font-size:9px;letter-spacing:.14em;color:rgba(229,242,255,.64)}
+.cinema-transition i{position:relative;width:76px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.2),#72c3ff)}
+.cinema-transition i::after{content:"";position:absolute;right:-1px;top:-3px;width:7px;height:7px;border-top:1px solid #72c3ff;border-right:1px solid #72c3ff;transform:rotate(45deg)}
+.cinema-insight{position:absolute;z-index:4;right:clamp(28px,6vw,110px);bottom:clamp(130px,18vh,210px);text-align:right;opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.cinema-insight small{display:block;margin-bottom:7px;font-family:var(--data);font-size:9px;letter-spacing:.16em;color:#78c4ff}
+.cinema-insight strong{display:block;font-family:var(--display-zh);font-size:clamp(28px,3vw,45px);line-height:1.28;color:#fff;text-shadow:0 8px 30px rgba(0,0,0,.3)}
+.cinema-scroll{position:absolute;z-index:4;left:50%;bottom:26px;display:flex;flex-direction:column;align-items:center;gap:8px;transform:translateX(-50%);font-family:var(--data);font-size:8px;letter-spacing:.16em;color:rgba(255,255,255,.52);transition:opacity .5s}
+.cinema-scroll i{display:block;width:1px;height:34px;background:linear-gradient(#72c3ff,transparent);animation:scrollpulse 1.8s ease-in-out infinite}
+@keyframes scrollpulse{0%,100%{transform:scaleY(.45);transform-origin:top;opacity:.4}50%{transform:scaleY(1);opacity:1}}
+.cinematic-hero[data-stage="1"] .cinema-transition,.cinematic-hero[data-stage="2"] .cinema-transition{opacity:1;transform:none}
+.cinematic-hero[data-stage="2"] .cinema-insight{opacity:1;transform:none}
+.cinematic-hero[data-stage="2"] .cinema-transition{opacity:.46;transform:translateY(42px)}
+.cinematic-hero[data-stage="1"] .cinema-scroll,.cinematic-hero[data-stage="2"] .cinema-scroll{opacity:0}
+@media(max-width:900px){.cinematic-hero{min-height:auto}.cinema-stage{position:relative;top:auto;height:auto;min-height:720px}.cinema-media img{object-position:62% center}.cinema-media::before{background:linear-gradient(90deg,rgba(4,18,36,.95),rgba(5,20,39,.64) 64%,rgba(4,18,36,.18)),linear-gradient(0deg,rgba(3,15,30,.72),transparent 50%)}.cinema-stage>.wrap{min-height:720px;align-items:flex-start;padding-top:90px;padding-bottom:160px}.cinematic-hero .hero-copy{max-width:650px}.cinema-transition{right:24px;bottom:86px}.cinema-insight{right:24px;bottom:130px}.cinema-scroll{display:none}}
+@media(max-width:560px){.cinema-stage,.cinema-stage>.wrap{min-height:760px}.cinematic-hero h1{font-size:clamp(36px,11vw,52px)}.cinematic-hero .hero-lede{font-size:14px}.cinema-media img{object-position:68% center}.cinema-media::before{background:linear-gradient(90deg,rgba(4,18,36,.96),rgba(5,20,39,.72) 78%,rgba(4,18,36,.35)),linear-gradient(0deg,rgba(3,15,30,.78),transparent 54%)}.cinema-transition span:first-child{display:none}.cinema-transition i{width:44px}}
+@media(prefers-reduced-motion:reduce){.cinema-media img{transform:scale(1.04)}.cinema-media::after{display:none}.cinema-scroll i{animation:none}}
+
+/* ── V7 全屏影像缩为下一屏窗口 ── */
+.cinematic-hero{--media-top:0%;--media-left:0%;--media-width:100%;--media-height:100%;--media-radius:0px;--media-shadow:0 0 0 rgba(0,0,0,0);--white-opacity:0;--media-overlay:1;--split-opacity:0;--brief-opacity:0;min-height:calc(100vh + 680px)}
+.cinema-stage{background:#f7f9fc}
+.cinema-stage::before{content:"";position:absolute;inset:0;z-index:0;background:#f7f9fc;opacity:var(--white-opacity)}
+.cinema-media{inset:auto;top:var(--media-top);left:var(--media-left);width:var(--media-width);height:var(--media-height);z-index:1;border-radius:var(--media-radius);box-shadow:var(--media-shadow);will-change:top,left,width,height,border-radius;transition:none}
+.cinema-media::before{opacity:var(--media-overlay)}
+.cinema-media::after{display:none}
+.cinema-stage>.wrap{z-index:3}
+.cinema-split-title{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:var(--split-opacity);font-family:var(--sans);font-size:clamp(34px,4vw,62px);font-weight:500;line-height:1;color:#111820;letter-spacing:-.045em}
+.cinema-split-title span{position:absolute;top:39%;transform:translateY(-50%)}
+.cinema-split-title .split-left{left:clamp(28px,7vw,130px)}
+.cinema-split-title .split-right{right:clamp(28px,7vw,130px)}
+.cinema-brief{position:absolute;z-index:4;top:75%;left:50%;width:min(620px,80vw);margin:0;transform:translate(-50%,14px);opacity:var(--brief-opacity);text-align:center;font-size:14px;line-height:1.9;color:#56677b}
+.cinema-brief b{color:#111820}
+.cinematic-hero[data-stage="morph"] .cinema-scroll,.cinematic-hero[data-stage="open"] .cinema-scroll{opacity:0}
+.cinematic-hero[data-stage="open"] .hero-copy{pointer-events:none}
+@media(max-width:900px){.cinematic-hero{min-height:auto}.cinema-media{top:0;left:0;width:100%;height:100%;border-radius:0;box-shadow:none}.cinema-split-title,.cinema-brief{display:none}}
+@media(prefers-reduced-motion:reduce){.cinema-split-title,.cinema-brief{display:none}}
 
 /* SVG 流动/发光 */
 .flowline{stroke-dasharray:4 8;stroke-linecap:round;animation:dashflow 1.15s linear infinite}
@@ -159,8 +263,7 @@ h2.sec{font-family:var(--display-zh);font-weight:900;font-size:clamp(24px,3.2vw,
 .toggle-bar button[data-path="token"][aria-selected="true"]{background:var(--teal);box-shadow:0 4px 14px var(--teal-glow)}
 
 .pathboard{background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--glass-line);border-radius:22px;box-shadow:var(--shadow);padding:clamp(24px,4vw,44px)}
-.pathrow{display:flex;align-items:center;gap:0;flex-wrap:wrap;row-gap:20px;transition:opacity .4s var(--ease),filter .4s var(--ease)}
-.pathrow+.pathrow{margin-top:34px;padding-top:34px;border-top:1px dashed var(--hairline)}
+.pathrow{display:flex;align-items:center;gap:0;flex-wrap:wrap;row-gap:20px}
 .pathrow .plabel{flex:0 0 100%;font-family:var(--data);font-size:12.5px;letter-spacing:.04em;margin-bottom:2px}
 .pathrow[data-p="real"] .plabel{color:var(--navy)}
 .pathrow[data-p="token"] .plabel{color:var(--teal)}
@@ -182,11 +285,9 @@ h2.sec{font-family:var(--display-zh);font-weight:900;font-size:clamp(24px,3.2vw,
 .pathrow[data-p="real"] .pconn{color:var(--navy-soft)}
 .pathrow[data-p="token"] .pconn{color:var(--teal)}
 @media(max-width:640px){.pconn{flex-basis:24px}}
-/* 高亮/压暗 */
+/* 每次只展示一条路径，减少页面长度 */
 .pathboard[data-active="real"] .pathrow[data-p="token"],
-.pathboard[data-active="token"] .pathrow[data-p="real"]{opacity:.32;filter:grayscale(.9)}
-.pathboard[data-active="real"] .pathrow[data-p="token"] .pconn::before,
-.pathboard[data-active="token"] .pathrow[data-p="real"] .pconn::before{animation:none}
+.pathboard[data-active="token"] .pathrow[data-p="real"]{display:none}
 /* 详情卡 */
 .pdetail{margin-top:26px;display:none;background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:26px 30px;box-shadow:var(--shadow)}
 .pdetail.show{display:block;animation:fadein .45s var(--ease)}
@@ -334,10 +435,45 @@ footer a{color:var(--teal)}
 .ask-card:hover::before,.choose-card:hover::before,.pcard:hover::before{opacity:1}
 /* ── DeGate 星标突出 ── */
 .star-mark{color:var(--gold);font-size:14px;margin-right:7px;text-shadow:0 0 8px rgba(245,185,66,.5)}
-.star-row td{background:linear-gradient(90deg,#fffbf0,#f4faff 55%)}
-tbody tr.star-row:hover td{background:linear-gradient(90deg,#fff7e4,#eaf4ff 55%)}
+.star-row td{background:transparent}
+tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
 .pill-star{background:#fdf3dd;color:#a97a14;font-weight:500}
-.pcard.star-card{border-color:#ecd9a8;background:linear-gradient(160deg,#fffdf6,rgba(255,255,255,.68) 45%)}
+.pcard.star-card{border-color:var(--glass-line);background:var(--glass)}
+
+/* ── 未来展望 ── */
+#outlook{background:linear-gradient(180deg,rgba(234,244,255,.52),rgba(248,251,255,0))}
+.outlook-head{display:grid;grid-template-columns:minmax(0,7fr) minmax(260px,4fr);gap:clamp(28px,5vw,64px);align-items:end;margin-bottom:38px}
+.outlook-head .lede{margin-bottom:0}
+.viewpoint{border:1px solid var(--hairline);background:rgba(255,255,255,.62);border-radius:12px;padding:16px 18px;font-size:13.5px;color:var(--muted)}
+.viewpoint b{display:block;color:var(--ink);font-size:14px;margin-bottom:3px}
+.outlook-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.outlook-card{background:#fff;border:1px solid var(--hairline);border-radius:18px;padding:26px 26px 24px;box-shadow:var(--shadow)}
+.outlook-card .phase{display:inline-flex;align-items:center;gap:7px;font-family:var(--data);font-size:11px;color:var(--brand-deep);background:var(--brand-soft);border-radius:99px;padding:4px 10px;margin-bottom:16px}
+.outlook-card h3{font-size:17px;line-height:1.55;margin-bottom:10px}
+.outlook-card p{font-size:14px;color:var(--muted);line-height:1.85}
+.outlook-conclusion{margin-top:22px;background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:22px 26px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+.outlook-conclusion .label{font-family:var(--data);font-size:11px;color:var(--brand-deep);background:var(--brand-soft);border-radius:6px;padding:4px 8px;white-space:nowrap}
+.outlook-conclusion p{font-size:14.5px}
+
+/* ── 研究与阅读 ── */
+.reading-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:34px}
+.reading-head .lede{margin-bottom:0}
+.updated{font-family:var(--data);font-size:11.5px;color:var(--muted);white-space:nowrap}
+.article-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.article-card{display:flex;flex-direction:column;min-height:230px;background:#fff;border:1px solid var(--hairline);border-radius:18px;padding:25px 26px;text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:background .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease)}
+.article-card:hover{background:#fbfdff;box-shadow:0 4px 18px rgba(16,64,140,.09);border-color:rgba(0,128,255,.3)}
+.article-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.source-chip{font-size:11px;font-weight:700;color:var(--brand-deep);background:var(--brand-soft);border-radius:99px;padding:4px 10px}
+.article-date{font-family:var(--data);font-size:10.5px;color:var(--muted)}
+.article-card h3{font-size:17px;line-height:1.6;margin-bottom:10px}
+.article-card p{font-size:13.5px;color:var(--muted);line-height:1.8;margin-bottom:18px}
+.article-card .read{margin-top:auto;color:var(--brand-deep);font-size:13px;font-weight:600}
+.reading-note{margin-top:18px;font-size:12.5px;color:var(--muted)}
+@media(max-width:820px){
+  .outlook-head{grid-template-columns:1fr}.outlook-grid{grid-template-columns:1fr}
+  .article-grid{grid-template-columns:1fr}.reading-head{align-items:flex-start;flex-direction:column}.updated{white-space:normal}
+}
+@media(max-width:560px){.outlook-conclusion{grid-template-columns:1fr}.outlook-card,.article-card{padding:22px}}
 /* ── 平台外链 ── */
 .plink{text-decoration:none;color:inherit;display:inline-flex;align-items:baseline;gap:6px}
 .plink .name{transition:color .2s}
@@ -365,129 +501,30 @@ tbody tr.star-row:hover td{background:linear-gradient(90deg,#fff7e4,#eaf4ff 55%)
     <div class="nav-links">
       <a href="#types">两种类型</a>
       <a href="#where">平台对比</a>
-      <a href="#choose">如何选择</a>
+      <a href="#outlook">未来展望</a>
+      <a href="#reading">行业资讯</a>
       <a class="sub" href="./crs.html">CRS 专题 →</a>
     </div>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="wrap">
-    <div class="hero-copy">
-      <span class="kicker"><span class="dot"></span>2026 链上美股独立指南</span>
-      <h1>链上美股正在兴起。<br>先看懂<mark>你到底买到了什么</mark>。</h1>
-      <p class="hero-lede">传统美股开户门槛不低：券商资质、海外地址、繁琐入金。链上美股给出了另一条路——但这四个字背后是结构完全不同的几类产品。这份指南把每个选项摊开对比，帮你自己做决定。</p>
-      <div class="hero-cta">
-        <a class="btn btn-navy" href="#types">两种类型</a>
-        <a class="btn btn-teal" href="#where">平台对比</a>
-        <a class="btn btn-ghost" href="./crs.html">CRS 专题</a>
+<header class="hero cinematic-hero" id="cinematic-hero" data-stage="0">
+  <div class="cinema-stage">
+    <div class="cinema-media" aria-hidden="true"><img src="./assets/hero-open-markets.png" alt="" fetchpriority="high"></div>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="kicker"><span class="dot"></span>ONCHAIN STOCKS · 2026</span>
+        <h1>链上美股正在兴起。<br>先看懂<mark>你到底买到了什么</mark>。</h1>
+        <p class="hero-lede">从券商账户里的真实股票，到个人钱包里的链上代币——同一个股票代码，可能代表完全不同的资产结构。先看懂，再选择。</p>
+        <div class="hero-cta">
+          <a class="btn btn-navy" href="#where">查看平台对比</a>
+          <a class="btn btn-ghost" href="#types">读懂资产结构</a>
+        </div>
       </div>
     </div>
-    <div class="hero-viz" aria-hidden="true">
-      <div class="viz-frame">
-        <svg viewBox="0 0 560 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="概念视觉：一枚链上股票代币，环绕轨道上分布着 AAPLx、TSLAx 等资产；两个落点暗示——机构账户与个人钱包地址">
-          <defs>
-            <linearGradient id="gB" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#66b3ff"/><stop offset="1" stop-color="#0080ff"/>
-            </linearGradient>
-            <linearGradient id="gTxt" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#0080ff"/><stop offset="1" stop-color="#66b3ff"/>
-            </linearGradient>
-            <radialGradient id="softBlue" cx=".5" cy=".5" r=".5">
-              <stop offset="0" stop-color="#d8ecff" stop-opacity=".85"/><stop offset="1" stop-color="#d8ecff" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="coinFace" cx=".38" cy=".3" r=".9">
-              <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eaf4ff"/>
-            </radialGradient>
-            <radialGradient id="goldGlow" cx=".5" cy=".5" r=".5">
-              <stop offset="0" stop-color="#f5b942" stop-opacity=".5"/><stop offset="1" stop-color="#f5b942" stop-opacity="0"/>
-            </radialGradient>
-            <filter id="b8" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
-            <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r=".9" fill="#0080ff" opacity=".06"/>
-            </pattern>
-          </defs>
-
-          <!-- 环境 -->
-          <rect width="560" height="480" fill="#ffffff"/>
-          <rect width="560" height="480" fill="url(#dots)"/>
-          <circle cx="470" cy="80" r="100" fill="url(#softBlue)"/>
-          <circle cx="70" cy="420" r="80" fill="url(#softBlue)" opacity=".7"/>
-
-          <!-- 轨道 -->
-          <ellipse cx="280" cy="228" rx="196" ry="150" fill="none" stroke="#d9e6f2" stroke-width="1.2"/>
-          <ellipse cx="280" cy="228" rx="132" ry="100" fill="none" stroke="#c6dcf5" stroke-width="1.2" stroke-dasharray="2 7"/>
-
-          <!-- 轨道流动粒子 -->
-          <circle class="fx packet" r="3.4" fill="#0080ff">
-            <animateMotion dur="14s" repeatCount="indefinite"
-              path="M84 228 a196 150 0 1 0 392 0 a196 150 0 1 0 -392 0"/>
-          </circle>
-          <circle class="fx" r="2.2" fill="#7dd3fc">
-            <animateMotion dur="14s" begin="7s" repeatCount="indefinite"
-              path="M84 228 a196 150 0 1 0 392 0 a196 150 0 1 0 -392 0"/>
-          </circle>
-          <circle class="fx packet-gold" r="2.6" fill="#f5b942">
-            <animateMotion dur="10s" begin="2s" repeatCount="indefinite"
-              path="M148 228 a132 100 0 1 0 264 0 a132 100 0 1 0 -264 0"/>
-          </circle>
-
-          <!-- 中心代币 -->
-          <circle cx="280" cy="228" r="86" fill="none" stroke="#0080ff" stroke-width="8" opacity=".28" filter="url(#b8)"/>
-          <circle cx="280" cy="228" r="80" fill="url(#coinFace)" stroke="url(#gB)" stroke-width="2.4"/>
-          <circle cx="280" cy="228" r="66" fill="none" stroke="#d8ecff" stroke-width="1.2"/>
-          <text x="280" y="216" text-anchor="middle" font-family="Archivo,Spline Sans Mono" font-size="22" font-weight="600" fill="url(#gTxt)">Onchain Stock</text>
-          <text x="280" y="240" text-anchor="middle" font-family="Noto Sans SC" font-size="13" fill="#48648c">链上股票敞口</text>
-          <rect x="234" y="252" width="92" height="19" rx="9.5" fill="#eaf4ff" stroke="#c6dcf5" stroke-width="1"/>
-          <text x="280" y="265" text-anchor="middle" font-family="Noto Sans SC" font-size="9.5" fill="#005fcc">1:1 储备支持</text>
-          <circle class="fx" cx="280" cy="228" r="88" fill="none" stroke="#66b3ff" stroke-width="1.2">
-            <animate attributeName="r" values="84;108" dur="3.2s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values=".5;0" dur="3.2s" repeatCount="indefinite"/>
-          </circle>
-
-          <!-- 卫星代币 -->
-          <g font-family="Spline Sans Mono" font-size="10.5" text-anchor="middle">
-            <g>
-              <animateTransform class="fx" attributeName="transform" type="translate" values="0 0;0 -7;0 0" dur="5.5s" repeatCount="indefinite"/>
-              <circle cx="118" cy="150" r="24" fill="#fff" stroke="url(#gB)" stroke-width="1.6"/>
-              <text x="118" y="155" fill="#005fcc">AAPLx</text>
-            </g>
-            <g>
-              <animateTransform class="fx" attributeName="transform" type="translate" values="0 0;0 -7;0 0" dur="6.3s" begin="1.2s" repeatCount="indefinite"/>
-              <circle cx="452" cy="180" r="24" fill="#fff" stroke="url(#gB)" stroke-width="1.6"/>
-              <text x="452" y="185" fill="#005fcc">TSLAx</text>
-            </g>
-            <g>
-              <animateTransform class="fx" attributeName="transform" type="translate" values="0 0;0 -7;0 0" dur="5.9s" begin="2.4s" repeatCount="indefinite"/>
-              <circle cx="356" cy="366" r="24" fill="#fff" stroke="url(#gB)" stroke-width="1.6"/>
-              <text x="356" y="371" fill="#005fcc">NVDAx</text>
-            </g>
-            <g>
-              <animateTransform class="fx" attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="6.8s" begin="3.1s" repeatCount="indefinite"/>
-              <circle cx="158" cy="330" r="20" fill="#fff" stroke="#c6dcf5" stroke-width="1.4"/>
-              <text x="158" y="335" fill="#4d82c4" font-size="9.5">SPYx</text>
-            </g>
-          </g>
-
-          <!-- 金色资产落点 -->
-          <circle cx="280" cy="118" r="14" fill="url(#goldGlow)"/>
-          <circle cx="280" cy="118" r="5" fill="#f5b942"/>
-
-          <!-- 两个落点暗示 -->
-          <g font-family="Spline Sans Mono">
-            <rect x="30" y="58" width="128" height="36" rx="10" fill="rgba(255,255,255,.85)" stroke="#d9e6f2" stroke-width="1.2"/>
-            <text x="42" y="73" font-size="8.5" fill="#8fa3bd" letter-spacing=".8">BROKER ACCOUNT</text>
-            <text x="42" y="87" font-family="Noto Sans SC" font-size="10" fill="#48648c">机构账户</text>
-            <rect x="402" y="396" width="128" height="36" rx="10" fill="rgba(255,255,255,.9)" stroke="url(#gB)" stroke-width="1.4"/>
-            <circle cx="416" cy="414" r="3.4" fill="#f5b942"/>
-            <text x="426" y="409" font-size="8.5" fill="#0080ff" letter-spacing=".8">WALLET</text>
-            <text x="426" y="423" font-size="9.5" fill="#005fcc">0x9f2…c41</text>
-          </g>
-          <!-- 主题句 -->
-          <text x="280" y="452" text-anchor="middle" font-family="Noto Sans SC" font-size="12" letter-spacing="2" fill="#48648c">看懂你买到的是账户权益，还是链上代币</text>
-        </svg>
-      </div>
-    </div>
+    <div class="cinema-split-title" aria-hidden="true"><span class="split-left">传统市场</span><span class="split-right">链上通路</span></div>
+    <p class="cinema-brief"><b>同一个股票代码</b>，可能对应完全不同的持有方式与权利结构。</p>
+    <div class="cinema-scroll" aria-hidden="true"><span>SCROLL TO EXPLORE</span><i></i></div>
   </div>
 </header>
 
@@ -522,7 +559,7 @@ tbody tr.star-row:hover td{background:linear-gradient(90deg,#fff7e4,#eaf4ff 55%)
       <div class="trait"><span class="k">7 × 24</span><div><h3>交易时间延展</h3><p>代币化产品可在美股休市期间继续流通；但休市时价格由链上供需决定，与下周开盘价可能存在差异。</p></div></div>
       <div class="trait"><span class="k">0.001 股</span><div><h3>碎股与小额买入</h3><p>按金额而非整股买入，几美元即可获得高价股敞口。</p></div></div>
       <div class="trait"><span class="k">USDC 入金</span><div><h3>加密资产直接入金</h3><p>无需换汇与国际电汇，稳定币即可参与，入金到成交以分钟计。</p></div></div>
-      <div class="trait"><span class="k">on-chain</span><div><h3>链上结算与组合性</h3><p>代币化股票可与 DeFi 组合——做 LP、做抵押；这是传统券商账户没有的用法。</p></div></div>
+      <div class="trait"><span class="k">on-chain</span><div><h3>链上结算与组合性</h3><p>代币化股票可用于链上收益策略或作为抵押品；这是传统券商账户通常不具备的用法。</p></div></div>
     </div>
   </div>
 </section>
@@ -532,11 +569,11 @@ tbody tr.star-row:hover td{background:linear-gradient(90deg,#fff7e4,#eaf4ff 55%)
     <h2 class="sec">两种类型：点击切换，看清各自的路径</h2>
     <p class="lede">同样给你美股敞口，两种模式在"谁替你拿着资产"上给出了相反答案。切换下方路径，把鼠标悬停在节点上可查看每一环的解释。</p>
     <div class="toggle-bar" role="tablist" aria-label="切换股票类型路径">
-      <button role="tab" aria-selected="true" data-path="real" id="tab-real">真实股票路径</button>
-      <button role="tab" aria-selected="false" data-path="token" id="tab-token">代币化股票路径</button>
+      <button role="tab" aria-selected="false" aria-controls="panel-real" data-path="real" id="tab-real">真实股票路径</button>
+      <button role="tab" aria-selected="true" aria-controls="panel-token" data-path="token" id="tab-token">代币化股票路径</button>
     </div>
-    <div class="pathboard" data-active="real" id="pathboard">
-      <div class="pathrow" data-p="real" role="tabpanel" aria-labelledby="tab-real">
+    <div class="pathboard" data-active="token" id="pathboard">
+      <div class="pathrow" data-p="real" id="panel-real" role="tabpanel" aria-labelledby="tab-real" aria-hidden="true">
         <span class="plabel">REAL SHARES · 券商代持</span>
         <button class="pnode" type="button"><h4>你</h4><span class="s">KYC 账号</span><span class="tip">开户需实名认证与资质审核，账户受平台可服务地区限制。</span></button>
         <span class="pconn" aria-hidden="true"></span>
@@ -546,7 +583,7 @@ tbody tr.star-row:hover td{background:linear-gradient(90deg,#fff7e4,#eaf4ff 55%)
         <span class="pconn" aria-hidden="true"></span>
         <button class="pnode" type="button"><h4>托管方</h4><span class="s">Alpaca · Apex</span><span class="tip">真实股票由托管机构持有；SIPC 保护层级视账户模式而定，详见下方对比表。</span></button>
       </div>
-      <div class="pathrow" data-p="token" role="tabpanel" aria-labelledby="tab-token">
+      <div class="pathrow" data-p="token" id="panel-token" role="tabpanel" aria-labelledby="tab-token" aria-hidden="false">
         <span class="plabel">STOCK TOKENS · 自托管</span>
         <button class="pnode" type="button"><h4>你的钱包</h4><span class="s">私钥自持</span><span class="tip">自托管钱包无需开户，地址即账户；助记词是资产的唯一钥匙，需自行妥善保管。</span></button>
         <span class="pconn" aria-hidden="true"></span>
@@ -554,14 +591,14 @@ tbody tr.star-row:hover td{background:linear-gradient(90deg,#fff7e4,#eaf4ff 55%)
         <span class="pconn" aria-hidden="true"></span>
         <button class="pnode" type="button"><h4>股票代币</h4><span class="s">回到你的地址</span><span class="tip">持牌发行商以真实股票 1:1 储备发行（如 xStocks），成交后代币直接留在你自己的地址。</span></button>
       </div>
-      <div class="pdetail show" data-d="real">
+      <div class="pdetail" data-d="real">
         <dl>
           <dt>你拥有的</dt><dd>券商账户内的<b>真实股票权益</b>，部分平台提供 SIPC 投资者保护</dd>
           <dt>股东权利</dt><dd>较完整；个别平台支持 ACATS 转出至其他券商</dd>
           <dt>取舍</dt><dd>资产由机构托管，存在对手方与账户模式差异（详见对比表）</dd>
         </dl>
       </div>
-      <div class="pdetail" data-d="token">
+      <div class="pdetail show" data-d="token">
         <dl>
           <dt>你拥有的</dt><dd><b>链上代币</b>，可存入自托管钱包，储备可通过链上数据验证</dd>
           <dt>股东权利</dt><dd>一般不含投票权，通常不可转入券商提取为普通股票</dd>
@@ -585,7 +622,7 @@ tbody tr.star-row:hover td{background:linear-gradient(90deg,#fff7e4,#eaf4ff 55%)
       <button class="fbtn" aria-pressed="false" data-f="wallet">钱包直连</button>
       <button class="fbtn" aria-pressed="false" data-f="selfcustody">自托管</button>
       <button class="fbtn" aria-pressed="false" data-f="sipc">SIPC 直接</button>
-      <button class="fbtn" aria-pressed="false" data-f="defi">DeFi 用法（LP 生息 / 抵押）</button>
+      <button class="fbtn" aria-pressed="false" data-f="defi">DeFi 收益与抵押</button>
     </div>
     <div class="tbl-scroll" role="region" aria-label="平台对比表" tabindex="0">
       <table>
@@ -619,11 +656,92 @@ tbody tr.star-row:hover td{background:linear-gradient(90deg,#fff7e4,#eaf4ff 55%)
         <p>选<b>代币化股票 + 自托管钱包</b>，然后比较筛选出的渠道：</p>
         <ul>
           <li><b>私钥自持</b>：资产在你自己的地址，不依赖任何机构的存续</li>
-          <li><b>DeFi 组合性</b>：股票代币可做 LP 生息（注意无常损失机制）</li>
+          <li><b>DeFi 组合性</b>：可参与链上收益策略或作为抵押品（注意智能合约与无常损失风险）</li>
           <li>接受无投票权、不可转券商的产品形态，并自己负责钱包安全</li>
         </ul>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="outlook">
+  <div class="wrap" data-reveal>
+    <div class="outlook-head">
+      <div>
+        <h2 class="sec">链上股票会走向哪里？</h2>
+        <p class="lede">真正值得关注的，不只是又多了几个可以买美股的入口，而是股票的发行、交易、结算和资产使用方式正在逐步迁移到新的基础设施上。</p>
+      </div>
+      <div class="viewpoint">
+        <b>本站判断</b>
+        以下是基于现有监管文件与市场进展作出的趋势判断，不代表已经落地的事实，也不构成投资建议。
+      </div>
+    </div>
+
+    <div class="outlook-grid">
+      <article class="outlook-card">
+        <span class="phase">01 · 基础设施融合</span>
+        <h3>链上与传统交易所不会长期平行发展</h3>
+        <p>短期内，券商账户和第三方股票代币仍会并存；更长期的方向，是持牌交易所、券商、托管方和链上结算网络逐步连接。竞争重点将从“有没有股票代币”，转向谁能提供更清晰的权利、更可靠的托管和更顺畅的结算。</p>
+      </article>
+      <article class="outlook-card">
+        <span class="phase">02 · 权利成为核心</span>
+        <h3>市场会越来越追问：代币背后到底是什么</h3>
+        <p>同样追踪一只股票，可能对应真实股票权益、托管凭证、第三方发行证券或纯合成敞口。随着监管与披露要求成熟，储备、赎回、股息、投票权、破产隔离和可否转入券商，将比“7×24 小时”更能决定产品质量。</p>
+      </article>
+      <article class="outlook-card">
+        <span class="phase">03 · 资产可编程</span>
+        <h3>股票可能从持仓，变成可组合的链上资产</h3>
+        <p>当合规、流动性和预言机条件成熟，股票代币可以参与抵押、借贷与自动化资产管理。但这也会把智能合约、清算、跨链和流动性分割风险带入传统证券领域，收益能力不会脱离风险独立存在。</p>
+      </article>
+    </div>
+
+    <div class="outlook-conclusion">
+      <span class="label">核心结论</span>
+      <p><b>链上股票短期不会取代传统券商，但会迫使市场重新定义账户、托管和结算。</b> 对普通用户来说，最重要的能力不是预测哪个平台最终胜出，而是看懂自己拥有的法律权利、退出路径和需要承担的对手方风险。</p>
+    </div>
+  </div>
+</section>
+
+<section id="reading">
+  <div class="wrap" data-reveal>
+    <div class="reading-head">
+      <div>
+        <h2 class="sec">链上股票行业资讯</h2>
+        <p class="lede">通过 xStocks 与 Ondo 的最新产品和市场进展，观察代币化股票如何扩展到更多投资者、区块链和传统市场基础设施。</p>
+      </div>
+      <span class="updated">资料核对：2026-07-13</span>
+    </div>
+
+    <div class="article-grid">
+      <a class="article-card" href="https://xstocks.com/news/one-year-of-xstocks-the-tokenized-equities-framework-that-made-a-market" target="_blank" rel="noopener">
+        <div class="article-meta"><span class="source-chip">xStocks · 年度进展</span><span class="article-date">2026-07-02</span></div>
+        <h3>xStocks 上线一年：代币化股票开始形成规模化市场</h3>
+        <p>xStocks 回顾上线一年来的持有人、交易与链上流通情况，并介绍 24/7 流动性、股息机制和 IPO 代币化等下一阶段方向。适合了解代币化股票从产品试验走向市场网络的过程。</p>
+        <span class="read">阅读 xStocks 原文 ↗</span>
+      </a>
+
+      <a class="article-card" href="https://xstocks.com/news/xstocks-to-power-nasdaqs-gateway-connecting-permissioned-and-permissionless-tokenized-equities-markets" target="_blank" rel="noopener">
+        <div class="article-meta"><span class="source-chip">xStocks × Nasdaq</span><span class="article-date">2026-03-09</span></div>
+        <h3>xStocks 与 Nasdaq 推进传统市场和链上网络互联</h3>
+        <p>双方计划建设连接受监管股票市场与去中心化网络的基础设施。值得关注的重点不是增加一个交易入口，而是代币化股票如何保留发行方控制、监管框架和底层股东权利。</p>
+        <span class="read">查看合作进展 ↗</span>
+      </a>
+
+      <a class="article-card" href="https://ondo.finance/blog/ondo-launches-tokenized-securities-in-usa" target="_blank" rel="noopener">
+        <div class="article-meta"><span class="source-chip">Ondo · 美国市场</span><span class="article-date">2026-07-02</span></div>
+        <h3>Ondo 在美国推出托管型代币化证券</h3>
+        <p>Ondo 将 IVV ETF 与 Micron 股票纳入第三方托管型代币化结构，底层证券继续处于传统监管托管链条中，并通过以太坊发行对应代币。这是观察合规链上股票结构的重要案例。</p>
+        <span class="read">阅读 Ondo 公告 ↗</span>
+      </a>
+
+      <a class="article-card" href="https://ondo.finance/blog/ondo-partners-with-broadridge-for-tokenized-stocks-voting-capabilities" target="_blank" rel="noopener">
+        <div class="article-meta"><span class="source-chip">Ondo × Broadridge</span><span class="article-date">2026-04-28</span></div>
+        <h3>Ondo 为代币化股票加入投票偏好和股东信息能力</h3>
+        <p>合作计划让 250 多种 Ondo 代币化股票和 ETF 的持有人提交投票偏好，并查看招股书、监管文件等信息。它反映行业竞争正从价格敞口转向更完整的股东参与能力。</p>
+        <span class="read">查看合作详情 ↗</span>
+      </a>
+    </div>
+    <p class="reading-note">以上均为项目方官方资讯，用于追踪行业进展，不代表本站认可其全部市场主张。产品数据、支持地区与权利结构可能变化，请以最新披露为准。</p>
   </div>
 </section>
 
@@ -665,7 +783,7 @@ tbody tr.star-row:hover td{background:linear-gradient(90deg,#fff7e4,#eaf4ff 55%)
 
 <section id="faq">
   <div class="wrap" data-reveal>
-    <h2 class="sec">高频问答</h2>
+    <h2 class="sec">FAQ</h2>
     <details>
       <summary>链上美股的"7×24 交易"是真的吗？</summary>
       <div class="a">代币化产品确实可以在美股休市期间继续买卖，但那是区块链资产的全天候流通，不是传统意义的股票交易：休市时价格由链上供需决定，预言机通常锚定最后收盘价，与下周一开盘价可能存在差异，流动性也更薄。</div>
@@ -711,7 +829,7 @@ const platforms=[
  {name:"BIT",url:"https://www.bit.com/",line:"BIT US Stocks",type:"real",broker:"Matrix Gelephu 等 · 托管 RQD",dest:"交易所账户",fee:"$0.005/股 或 0.99%",tags:["real","kyc"],pills:[["warn","账户模式未披露"],["warn","转出机制未披露"]]},
  {name:"Kraken / Bybit / Gate",url:"https://www.kraken.com/zh-cn/pro/xstocks",line:"xStocks 现货",type:"token",broker:"发行商 Backed 等 · 1:1 储备",dest:"交易所账户，部分支持提币",fee:"各所现货费率",tags:["token","kyc"],pills:[["ok","部分支持提币到钱包"],["warn","需 KYC"]]},
  {name:"链上 DEX",url:"https://xstocks.com/",line:"公链去中心化交易所",type:"token",broker:"发行商 Backed 等 · 1:1 储备",dest:"你的自托管钱包",fee:"链上兑换费用",tags:["token","wallet","selfcustody","defi"],pills:[["self","钱包直连"],["ok","地址即账户"]]},
- {name:"DeGate",star:1,url:"https://degate.com/",line:"自托管钱包平台",type:"token",broker:"发行商 Backed 等 · 1:1 储备",dest:"你的自托管钱包",fee:"平台费率",tags:["token","wallet","selfcustody","defi"],pills:[["self","钱包直连"],["ok","支持 LP 等 DeFi 用法"]]}
+ {name:"DeGate",star:1,url:"https://degate.com/",line:"自托管钱包平台",type:"token",broker:"发行商 Backed 等 · 1:1 储备",dest:"你的自托管钱包",fee:"平台费率",tags:["token","wallet","selfcustody","defi"],pills:[["self","钱包直连"],["ok","支持 DeFi 收益与抵押"]]}
 ];
 const pillHtml=p=>p.map(([c,t])=>`<span class="pill pill-${c}">${t}</span>`).join("");
 const typeTag=t=>t==="real"?'<span class="type-tag type-real">真实股票</span>':'<span class="type-tag type-token">代币化</span>';
@@ -742,11 +860,49 @@ document.querySelectorAll(".toggle-bar button").forEach(b=>b.addEventListener("c
   document.querySelectorAll(".toggle-bar button").forEach(x=>x.setAttribute("aria-selected","false"));
   b.setAttribute("aria-selected","true");
   board.dataset.active=b.dataset.path;
+  document.querySelectorAll(".pathrow").forEach(p=>p.setAttribute("aria-hidden",String(p.dataset.p!==b.dataset.path)));
   document.querySelectorAll(".pdetail").forEach(d=>d.classList.toggle("show",d.dataset.d===b.dataset.path));
 }));
 
 /* ── scroll reveal ── */
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ── 首屏电影感滚动推进 ── */
+const cinemaHero=document.getElementById("cinematic-hero");
+const cinemaStage=cinemaHero.querySelector(".cinema-stage");
+let cinemaTicking=false;
+function updateCinema(){
+  cinemaTicking=false;
+  if(reduce||innerWidth<=900){cinemaHero.dataset.stage="static";return}
+  const rect=cinemaHero.getBoundingClientRect();
+  const travel=Math.max(1,cinemaHero.offsetHeight-cinemaStage.offsetHeight);
+  const p=Math.max(0,Math.min(1,(64-rect.top)/travel));
+  const smooth=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t)};
+  const morph=smooth(.1,.78,p),copyOut=smooth(.04,.36,p);
+  const splitIn=smooth(.48,.73,p),briefIn=smooth(.72,.96,p);
+  cinemaHero.style.setProperty("--media-top",(morph*13).toFixed(2)+"%");
+  cinemaHero.style.setProperty("--media-left",(morph*35).toFixed(2)+"%");
+  cinemaHero.style.setProperty("--media-width",(100-morph*70).toFixed(2)+"%");
+  cinemaHero.style.setProperty("--media-height",(100-morph*49).toFixed(2)+"%");
+  cinemaHero.style.setProperty("--media-radius",(morph*28).toFixed(1)+"px");
+  cinemaHero.style.setProperty("--media-shadow",`0 ${Math.round(morph*24)}px ${Math.round(morph*70)}px rgba(16,35,58,${(.18*morph).toFixed(2)})`);
+  cinemaHero.style.setProperty("--white-opacity",morph.toFixed(3));
+  cinemaHero.style.setProperty("--media-overlay",(1-morph*.84).toFixed(3));
+  cinemaHero.style.setProperty("--split-opacity",splitIn.toFixed(3));
+  cinemaHero.style.setProperty("--brief-opacity",briefIn.toFixed(3));
+  cinemaHero.style.setProperty("--cinema-scale",(1.045-morph*.025).toFixed(3));
+  cinemaHero.style.setProperty("--cinema-x","0%");
+  cinemaHero.style.setProperty("--cinema-copy-y",(-copyOut*24).toFixed(1)+"px");
+  cinemaHero.style.setProperty("--cinema-copy-opacity",(1-copyOut).toFixed(3));
+  cinemaHero.dataset.stage=p>.73?"open":p>.08?"morph":"cover";
+}
+function requestCinemaUpdate(){
+  if(cinemaTicking)return;cinemaTicking=true;requestAnimationFrame(updateCinema);
+}
+addEventListener("scroll",requestCinemaUpdate,{passive:true});
+addEventListener("resize",requestCinemaUpdate,{passive:true});
+updateCinema();
+
 if(!reduce&&"IntersectionObserver"in window){
   const rEls=document.querySelectorAll("[data-reveal]");
   rEls.forEach(el=>el.classList.add("reveal-pre"));
