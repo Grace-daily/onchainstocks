@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SHGDYVKFVD"></script>
+<script src="./data/market-data.js"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -194,23 +195,54 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 @media(prefers-reduced-motion:reduce){.cinema-media img{transform:scale(1.04)}.cinema-media::after{display:none}.cinema-scroll i{animation:none}}
 
 /* ── V7 全屏影像缩为下一屏窗口 ── */
-.cinematic-hero{--media-top:0%;--media-left:0%;--media-width:100%;--media-height:100%;--media-radius:0px;--media-shadow:0 0 0 rgba(0,0,0,0);--white-opacity:0;--media-overlay:1;--split-opacity:0;--brief-opacity:0;min-height:calc(100vh + 680px)}
+.cinematic-hero{--media-top:0%;--media-left:0%;--media-width:100%;--media-height:100%;--media-radius:0px;--media-shadow:0 0 0 rgba(0,0,0,0);--white-opacity:0;--media-overlay:1;--split-opacity:0;--split-left:0%;--split-right:0%;--brief-opacity:0;--value-opacity:0;min-height:calc(100vh + 760px)}
 .cinema-stage{background:#f7f9fc}
 .cinema-stage::before{content:"";position:absolute;inset:0;z-index:0;background:#f7f9fc;opacity:var(--white-opacity)}
 .cinema-media{inset:auto;top:var(--media-top);left:var(--media-left);width:var(--media-width);height:var(--media-height);z-index:1;border-radius:var(--media-radius);box-shadow:var(--media-shadow);will-change:top,left,width,height,border-radius;transition:none}
 .cinema-media::before{opacity:var(--media-overlay)}
 .cinema-media::after{display:none}
+.cinema-half{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;will-change:transform}.cinema-half-left{left:0;transform:translateX(var(--split-left))}.cinema-half-right{right:0;transform:translateX(var(--split-right))}
+.cinema-half img{position:absolute;top:0;width:200%;max-width:none;height:100%;object-fit:cover;object-position:center;transform:scale(var(--cinema-scale));filter:saturate(.9) contrast(1.04)}.cinema-half-left img{left:0}.cinema-half-right img{left:-100%}
 .cinema-stage>.wrap{z-index:3}
-.cinema-split-title{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:var(--split-opacity);font-family:var(--sans);font-size:clamp(34px,4vw,62px);font-weight:500;line-height:1;color:#111820;letter-spacing:-.045em}
+.cinema-split-title{display:none}
 .cinema-split-title span{position:absolute;top:39%;transform:translateY(-50%)}
 .cinema-split-title .split-left{left:clamp(28px,7vw,130px)}
 .cinema-split-title .split-right{right:clamp(28px,7vw,130px)}
-.cinema-brief{position:absolute;z-index:4;top:75%;left:50%;width:min(620px,80vw);margin:0;transform:translate(-50%,14px);opacity:var(--brief-opacity);text-align:center;font-size:14px;line-height:1.9;color:#56677b}
-.cinema-brief b{color:#111820}
+.market-pulse{position:absolute;z-index:4;top:50%;left:50%;width:min(920px,80vw);transform:translate(-50%,-48%);color:#111820}
+.pulse-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(18,45,72,.18) 12%,rgba(18,45,72,.18) 88%,transparent);opacity:var(--value-opacity)}
+.pulse-head{display:flex;align-items:center;justify-content:space-between;padding:12px 28px 16px;font-family:var(--data);font-size:11px;letter-spacing:.12em;color:#708095;text-transform:uppercase;opacity:var(--value-opacity)}
+.pulse-head-left{display:flex;align-items:center;gap:14px}.pulse-head a{color:#4d6077;text-decoration:none;pointer-events:auto;transition:color .2s ease}.pulse-head a:hover{color:#087fe7}
+.pulse-live{display:inline-flex!important;align-items:center;gap:7px;margin-top:0!important;color:#087fe7!important}
+.pulse-live::before{content:"";width:6px;height:6px;border-radius:50%;background:#f5b942;box-shadow:0 0 0 5px rgba(245,185,66,.12)}
+.market-pulse[data-status="live"] .pulse-live::before{background:#19a879;box-shadow:0 0 0 5px rgba(25,168,121,.12)}
+.market-pulse[data-status="error"] .pulse-live::before{background:#93a0af;box-shadow:none}
+.pulse-grid{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(3,1fr);min-height:min(620px,calc(100vh - 140px));padding:0}
+.pulse-stat{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;align-items:center;min-width:0;padding:36px 42px}.pulse-stat:not(:first-child)::before{display:none}
+.pulse-stat-label{grid-column:1;grid-row:1;display:block;margin:0;font-size:clamp(23px,2vw,30px);font-weight:500;color:#26384d;opacity:var(--brief-opacity)}
+.pulse-number{grid-column:2;grid-row:1 / span 2;display:flex;align-items:baseline;white-space:nowrap;font-family:var(--data);font-size:clamp(68px,6.2vw,90px);font-weight:500;line-height:1;letter-spacing:-.06em;font-variant-numeric:tabular-nums;color:#0d6fd9;opacity:var(--value-opacity)}
+.odo-static,.odo-digit{display:inline-block}.odo-digit{height:1em;overflow:hidden;vertical-align:bottom}.odo-strip{display:flex;flex-direction:column;height:30em;line-height:1;transform:translateY(0);will-change:transform;transition:transform 1.15s cubic-bezier(.16,1,.3,1);transition-delay:var(--delay)}.odo-strip b{display:block;height:1em;font:inherit;font-weight:inherit;line-height:1}
+.market-pulse.is-counting .odo-strip{transform:translateY(calc(var(--roll) * -1em))}
+.pulse-change{grid-column:1;grid-row:2;display:block;margin-top:15px;color:#15966d;font-family:var(--data);font-size:14px;font-style:normal;font-variant-numeric:tabular-nums;opacity:var(--value-opacity)}
+.pulse-change.down{color:#d85b64!important}
+.pulse-scope{margin:7px 0 0;text-align:center;font-size:9px;line-height:1.6;color:#8a96a6;opacity:var(--value-opacity)}
 .cinematic-hero[data-stage="morph"] .cinema-scroll,.cinematic-hero[data-stage="open"] .cinema-scroll{opacity:0}
 .cinematic-hero[data-stage="open"] .hero-copy{pointer-events:none}
-@media(max-width:900px){.cinematic-hero{min-height:auto}.cinema-media{top:0;left:0;width:100%;height:100%;border-radius:0;box-shadow:none}.cinema-split-title,.cinema-brief{display:none}}
-@media(prefers-reduced-motion:reduce){.cinema-split-title,.cinema-brief{display:none}}
+@media(max-width:900px){
+  .cinematic-hero{min-height:calc(100svh + 680px)}
+  .cinema-stage{position:sticky;top:64px;height:calc(100svh - 64px);min-height:0}
+  .cinema-stage>.wrap{height:100%;min-height:0;align-items:flex-start;padding-top:clamp(54px,9vh,86px);padding-bottom:130px}
+  .cinema-media{top:var(--media-top);left:var(--media-left);width:var(--media-width);height:var(--media-height);border-radius:var(--media-radius);box-shadow:var(--media-shadow)}
+  .cinema-split-title{display:none}
+  .cinema-scroll{display:flex;bottom:18px}.cinema-scroll span{font-size:0}.cinema-scroll span::after{content:"上滑探索";font-size:9px}
+  .market-pulse{top:20%;bottom:auto;width:calc(100% - 72px);padding:8px 0 10px;transform:translate(-50%,14px);color:#111820}
+  .pulse-head,.pulse-rule,.pulse-scope{display:none}
+  .pulse-grid{grid-template-columns:1fr;grid-template-rows:repeat(3,auto);min-height:0;padding:0}
+  .pulse-stat{padding:11px 3px}.pulse-stat:not(:first-child)::before{right:0;left:0}
+  .pulse-stat-label{grid-column:1;grid-row:1;margin:0;font-size:12px}.pulse-number{grid-column:2;grid-row:1 / span 2;font-size:27px}.pulse-change{grid-column:1;grid-row:2;margin-top:3px;font-size:9px}
+  .cinematic-hero[data-stage="open"] .market-pulse{pointer-events:auto}
+}
+@media(max-width:560px){.pulse-number{font-size:24px}.cinematic-hero h1{font-size:clamp(34px,10.5vw,48px)}}
+@media(prefers-reduced-motion:reduce){.cinema-split-title{display:none}.market-pulse{opacity:1}.odo-strip{transition:none}.market-pulse .odo-strip{transform:translateY(calc(var(--roll) * -1em))}}
 
 /* SVG 流动/发光 */
 .flowline{stroke-dasharray:4 8;stroke-linecap:round;animation:dashflow 1.15s linear infinite}
@@ -510,7 +542,10 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
 
 <header class="hero cinematic-hero" id="cinematic-hero" data-stage="0">
   <div class="cinema-stage">
-    <div class="cinema-media" aria-hidden="true"><img src="./assets/hero-open-markets.png" alt="" fetchpriority="high"></div>
+    <div class="cinema-media" aria-hidden="true">
+      <div class="cinema-half cinema-half-left"><img src="./assets/hero-open-markets.png" alt="" fetchpriority="high"></div>
+      <div class="cinema-half cinema-half-right"><img src="./assets/hero-open-markets.png" alt="" fetchpriority="high"></div>
+    </div>
     <div class="wrap">
       <div class="hero-copy">
         <span class="kicker"><span class="dot"></span>ONCHAIN STOCKS · 2026</span>
@@ -522,8 +557,12 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
         </div>
       </div>
     </div>
-    <div class="cinema-split-title" aria-hidden="true"><span class="split-left">传统市场</span><span class="split-right">链上通路</span></div>
-    <p class="cinema-brief"><b>同一个股票代码</b>，可能对应完全不同的持有方式与权利结构。</p>
+    <div class="market-pulse" id="market-pulse" data-status="loading" aria-live="polite">
+      <div class="pulse-head"><div class="pulse-head-left"><span>Market pulse</span><a href="https://getrealstocks.com/" target="_blank" rel="noopener">数据源：Get Real Stocks ↗</a><span class="pulse-live" id="pulse-state">已同步</span></div><span id="pulse-time">最近更新：2026/07/13 18:16（北京时间）</span></div>
+      <div class="pulse-rule"></div>
+      <div class="pulse-grid" id="pulse-grid"></div>
+      <div class="pulse-rule"></div>
+    </div>
     <div class="cinema-scroll" aria-hidden="true"><span>SCROLL TO EXPLORE</span><i></i></div>
   </div>
 </header>
@@ -871,30 +910,51 @@ const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const cinemaHero=document.getElementById("cinematic-hero");
 const cinemaStage=cinemaHero.querySelector(".cinema-stage");
 let cinemaTicking=false;
+function applyCinemaStage(stage){
+  const changed=cinemaHero.dataset.stage!==stage;
+  cinemaHero.dataset.stage=stage;
+  if(stage==="open"&&changed)runMarketOdometers();
+  if(stage==="cover")document.getElementById("market-pulse")?.classList.remove("is-counting");
+}
 function updateCinema(){
   cinemaTicking=false;
-  if(reduce||innerWidth<=900){cinemaHero.dataset.stage="static";return}
+  if(reduce){
+    const shift=innerWidth<=900?92:94;
+    cinemaHero.style.setProperty("--split-left",`-${shift}%`);
+    cinemaHero.style.setProperty("--split-right",`${shift}%`);
+    cinemaHero.style.setProperty("--white-opacity","1");
+    cinemaHero.style.setProperty("--media-overlay","0");
+    cinemaHero.style.setProperty("--brief-opacity","1");
+    cinemaHero.style.setProperty("--value-opacity","1");
+    cinemaHero.style.setProperty("--cinema-copy-opacity","0");
+    applyCinemaStage("static");return;
+  }
   const rect=cinemaHero.getBoundingClientRect();
   const travel=Math.max(1,cinemaHero.offsetHeight-cinemaStage.offsetHeight);
   const p=Math.max(0,Math.min(1,(64-rect.top)/travel));
   const smooth=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t)};
-  const morph=smooth(.1,.78,p),copyOut=smooth(.04,.36,p);
-  const splitIn=smooth(.48,.73,p),briefIn=smooth(.72,.96,p);
-  cinemaHero.style.setProperty("--media-top",(morph*13).toFixed(2)+"%");
-  cinemaHero.style.setProperty("--media-left",(morph*35).toFixed(2)+"%");
-  cinemaHero.style.setProperty("--media-width",(100-morph*70).toFixed(2)+"%");
-  cinemaHero.style.setProperty("--media-height",(100-morph*49).toFixed(2)+"%");
-  cinemaHero.style.setProperty("--media-radius",(morph*28).toFixed(1)+"px");
-  cinemaHero.style.setProperty("--media-shadow",`0 ${Math.round(morph*24)}px ${Math.round(morph*70)}px rgba(16,35,58,${(.18*morph).toFixed(2)})`);
-  cinemaHero.style.setProperty("--white-opacity",morph.toFixed(3));
-  cinemaHero.style.setProperty("--media-overlay",(1-morph*.84).toFixed(3));
-  cinemaHero.style.setProperty("--split-opacity",splitIn.toFixed(3));
-  cinemaHero.style.setProperty("--brief-opacity",briefIn.toFixed(3));
-  cinemaHero.style.setProperty("--cinema-scale",(1.045-morph*.025).toFixed(3));
+  const mobile=innerWidth<=900;
+  const doors=smooth(.08,mobile?.58:.55,p),copyOut=smooth(.03,.3,p);
+  const namesIn=smooth(.36,.62,p),valuesIn=smooth(.64,.94,p);
+  cinemaHero.style.setProperty("--media-top","0%");
+  cinemaHero.style.setProperty("--media-left","0%");
+  cinemaHero.style.setProperty("--media-width","100%");
+  cinemaHero.style.setProperty("--media-height","100%");
+  cinemaHero.style.setProperty("--media-radius","0px");
+  cinemaHero.style.setProperty("--media-shadow","none");
+  const splitDistance=doors*(mobile?92:94);
+  cinemaHero.style.setProperty("--split-left",(-splitDistance).toFixed(2)+"%");
+  cinemaHero.style.setProperty("--split-right",splitDistance.toFixed(2)+"%");
+  cinemaHero.style.setProperty("--white-opacity",doors.toFixed(3));
+  cinemaHero.style.setProperty("--media-overlay",Math.max(0,1-doors*1.55).toFixed(3));
+  cinemaHero.style.setProperty("--split-opacity","0");
+  cinemaHero.style.setProperty("--brief-opacity",namesIn.toFixed(3));
+  cinemaHero.style.setProperty("--value-opacity",valuesIn.toFixed(3));
+  cinemaHero.style.setProperty("--cinema-scale",(1.045-doors*.025).toFixed(3));
   cinemaHero.style.setProperty("--cinema-x","0%");
-  cinemaHero.style.setProperty("--cinema-copy-y",(-copyOut*24).toFixed(1)+"px");
+  cinemaHero.style.setProperty("--cinema-copy-y",(-copyOut*(mobile?18:24)).toFixed(1)+"px");
   cinemaHero.style.setProperty("--cinema-copy-opacity",(1-copyOut).toFixed(3));
-  cinemaHero.dataset.stage=p>.73?"open":p>.08?"morph":"cover";
+  applyCinemaStage(p>.64?"open":p>.05?"morph":"cover");
 }
 function requestCinemaUpdate(){
   if(cinemaTicking)return;cinemaTicking=true;requestAnimationFrame(updateCinema);
@@ -1020,6 +1080,64 @@ const TICKERS=[
  {id:"nasdaq-xstock",t:"QQQx",n:"Nasdaq ETF"}
 ];
 const track=document.getElementById("mq-track"),mqNote=document.getElementById("mq-note");
+const marketPulse=document.getElementById("market-pulse"),pulseGrid=document.getElementById("pulse-grid"),pulseTime=document.getElementById("pulse-time"),pulseState=document.getElementById("pulse-state");
+let marketMetrics=[
+  {label:"现货成交量 · 24H",value:"$96.1M",changePct:115.60},
+  {label:"合约成交量 · 24H",value:"$13.4B",changePct:15.83},
+  {label:"未平仓量 · 全市场",value:"$4.8B",changePct:74.56}
+];
+function odometerMarkup(value,metricIndex){
+  let digitIndex=0;
+  return [...value].map(char=>{
+    if(!/\d/.test(char))return `<span class="odo-static">${char}</span>`;
+    const target=20+Number(char),delay=metricIndex*90+digitIndex++*42;
+    const rail="0123456789".repeat(3).split("").map(n=>`<b>${n}</b>`).join("");
+    return `<span class="odo-digit"><span class="odo-strip" style="--roll:${target};--delay:${delay}ms">${rail}</span></span>`;
+  }).join("");
+}
+function renderMarketMetrics(){
+  pulseGrid.innerHTML=marketMetrics.map((item,index)=>{
+    const direction=item.changePct>=0?"▲":"▼",down=item.changePct<0?" down":"";
+    return `<article class="pulse-stat"><span class="pulse-stat-label">${item.label}</span><strong class="pulse-number" aria-label="${item.value}"><span aria-hidden="true">${odometerMarkup(item.value,index)}</span></strong><em class="pulse-change${down}">${direction} ${Math.abs(item.changePct).toFixed(2)}% · 较 4 周前</em></article>`;
+  }).join("");
+  if(cinemaHero.dataset.stage==="open")requestAnimationFrame(runMarketOdometers);
+}
+function runMarketOdometers(){
+  const pulse=document.getElementById("market-pulse");
+  if(!pulse||!pulse.querySelector(".odo-strip"))return;
+  pulse.classList.remove("is-counting");
+  void pulse.offsetWidth;
+  pulse.classList.add("is-counting");
+}
+function formatMarketTime(value){
+  const date=new Date(value);
+  if(Number.isNaN(date.getTime()))return "时间未知";
+  const parts=new Intl.DateTimeFormat("zh-CN",{timeZone:"Asia/Shanghai",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(date);
+  const part=type=>parts.find(x=>x.type===type)?.value||"";
+  return `${part("year")}/${part("month")}/${part("day")} ${part("hour")}:${part("minute")}`;
+}
+function applyMarketData(data){
+  if(!data||!Array.isArray(data.metrics)||data.metrics.length!==3)return false;
+  marketMetrics=data.metrics;
+  pulseTime.textContent=`最近更新：${formatMarketTime(data.updatedAt)}（北京时间）`;
+  pulseState.textContent="已同步";
+  marketPulse.dataset.status="live";
+  renderMarketMetrics();
+  return true;
+}
+async function loadMarketOverview(){
+  const hasInline=applyMarketData(window.__MARKET_DATA__);
+  if(location.protocol==="file:")return;
+  try{
+    const r=await fetch(`./data/market.json?v=${Date.now()}`,{cache:"no-store"});
+    if(!r.ok)throw 0;
+    const data=await r.json();
+    if(!applyMarketData(data))throw 0;
+  }catch(e){
+    if(!hasInline){pulseState.textContent="暂未同步";marketPulse.dataset.status="error";}
+  }
+}
+renderMarketMetrics();loadMarketOverview();
 const chipHtml=(x,d)=>{
   let px="",chg="";
   if(d&&d.usd!=null){
