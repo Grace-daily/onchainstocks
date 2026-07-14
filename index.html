@@ -33,7 +33,7 @@
   "mainEntity": [
     {"@type":"Question","name":"链上美股是什么？","acceptedAnswer":{"@type":"Answer","text":"链上美股泛指通过加密交易所或区块链获得美股敞口的产品，主要有两类：一类是交易所对接持牌券商、替用户代持真实股票（Real Shares）；另一类是持牌发行商以真实股票 1:1 储备发行的代币化股票（Stock Tokens，如 xStocks），代币可存入用户自己的钱包。此外还有股票永续合约等衍生品形式。"}},
     {"@type":"Question","name":"真实股票模式和代币化股票模式有什么区别？","acceptedAnswer":{"@type":"Answer","text":"核心区别在托管结构：真实股票模式下，股票由券商与托管方（如 Alpaca、Apex）替你持有，你拥有的是券商账户内的权益，部分平台提供 SIPC 保护；代币化股票模式下，你持有的是链上代币，可存入自托管钱包，由发行商的股票储备支持，一般不含投票权、不可转入券商提取。"}},
-    {"@type":"Question","name":"哪些交易所可以买链上美股？","acceptedAnswer":{"@type":"Answer","text":"真实股票模式：Coinbase、Kraken、Crypto.com、Binance、Gate、Backpack、BIT 等已上线，各家对接的券商与托管方不同。代币化股票：Kraken、Bybit、Gate 等中心化交易所有上线 xStocks，同时可通过链上 DEX 或支持自托管钱包的平台（如 DeGate）直接购买并存入个人钱包。"}},
+    {"@type":"Question","name":"哪些交易所可以买链上美股？","acceptedAnswer":{"@type":"Answer","text":"应按产品线而不是平台品牌区分。Coinbase、Kraken Securities、Crypto.com Real Shares、Binance Stocks、Gate Stocks、Backpack Securities、BIT US Stocks 等属于真实股票产品线；Binance bStocks、Crypto.com Tokenized Stocks，以及 Kraken、Bybit、Gate 上的 xStocks 属于股票代币产品线。同一平台可能同时提供两种产品，但所有权、托管结构和地区限制并不相同。"}},
     {"@type":"Question","name":"买链上美股需要 KYC 吗？","acceptedAnswer":{"@type":"Answer","text":"在中心化交易所购买（无论真实股票还是代币化股票）通常都需要完成 KYC 实名认证并受平台所在地资质限制；通过自托管钱包在链上直接兑换代币化股票则以钱包地址为账户。无论哪种方式，用户都应遵守自己所在地的法律法规并履行纳税申报义务。"}}
   ]
 }
@@ -208,10 +208,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .cinema-split-title span{position:absolute;top:39%;transform:translateY(-50%)}
 .cinema-split-title .split-left{left:clamp(28px,7vw,130px)}
 .cinema-split-title .split-right{right:clamp(28px,7vw,130px)}
-.market-pulse{position:absolute;z-index:4;top:50%;left:50%;width:min(920px,80vw);transform:translate(-50%,-48%);color:#111820}
+.market-pulse{position:absolute;z-index:4;top:50%;left:50%;width:min(920px,80vw);transform:translate(-50%,-48%);color:#111820;pointer-events:none}
 .pulse-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(18,45,72,.18) 12%,rgba(18,45,72,.18) 88%,transparent);opacity:var(--value-opacity)}
 .pulse-head{display:flex;align-items:center;justify-content:space-between;padding:12px 28px 16px;font-family:var(--data);font-size:11px;letter-spacing:.12em;color:#708095;text-transform:uppercase;opacity:var(--value-opacity)}
-.pulse-head-left{display:flex;align-items:center;gap:14px}.pulse-head a{color:#4d6077;text-decoration:none;pointer-events:auto;transition:color .2s ease}.pulse-head a:hover{color:#087fe7}
+.pulse-head-left{display:flex;align-items:center;gap:14px}.pulse-head a{color:#4d6077;text-decoration:none;pointer-events:none;transition:color .2s ease}.pulse-head a:hover{color:#087fe7}
 .pulse-live{display:inline-flex!important;align-items:center;gap:7px;margin-top:0!important;color:#087fe7!important}
 .pulse-live::before{content:"";width:6px;height:6px;border-radius:50%;background:#f5b942;box-shadow:0 0 0 5px rgba(245,185,66,.12)}
 .market-pulse[data-status="live"] .pulse-live::before{background:#19a879;box-shadow:0 0 0 5px rgba(25,168,121,.12)}
@@ -227,6 +227,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .pulse-scope{margin:7px 0 0;text-align:center;font-size:9px;line-height:1.6;color:#8a96a6;opacity:var(--value-opacity)}
 .cinematic-hero[data-stage="morph"] .cinema-scroll,.cinematic-hero[data-stage="open"] .cinema-scroll{opacity:0}
 .cinematic-hero[data-stage="open"] .hero-copy{pointer-events:none}
+.cinematic-hero[data-stage="open"] .pulse-head a{pointer-events:auto}
 @media(max-width:900px){
   .cinematic-hero{min-height:calc(100svh + 680px)}
   .cinema-stage{position:sticky;top:64px;height:calc(100svh - 64px);min-height:0}
@@ -239,7 +240,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
   .pulse-grid{grid-template-columns:1fr;grid-template-rows:repeat(3,auto);min-height:0;padding:0}
   .pulse-stat{padding:11px 3px}.pulse-stat:not(:first-child)::before{right:0;left:0}
   .pulse-stat-label{grid-column:1;grid-row:1;margin:0;font-size:12px}.pulse-number{grid-column:2;grid-row:1 / span 2;font-size:27px}.pulse-change{grid-column:1;grid-row:2;margin-top:3px;font-size:9px}
-  .cinematic-hero[data-stage="open"] .market-pulse{pointer-events:auto}
+  .cinematic-hero[data-stage="open"] .market-pulse{pointer-events:none}
 }
 @media(max-width:560px){.pulse-number{font-size:24px}.cinematic-hero h1{font-size:clamp(34px,10.5vw,48px)}}
 @media(prefers-reduced-motion:reduce){.cinema-split-title{display:none}.market-pulse{opacity:1}.odo-strip{transition:none}.market-pulse .odo-strip{transform:translateY(calc(var(--roll) * -1em))}}
@@ -353,9 +354,13 @@ tr:last-child td{border-bottom:none}
 .pill-ok{background:#e3f2ec;color:var(--up)}
 .pill-warn{background:#F5EDDC;color:var(--warn)}
 .pill-self{background:#e5f1ff;color:var(--teal);font-weight:500}
+.pill-issuer{background:#edf2ff;color:#3157a4;font-weight:650;box-shadow:inset 0 0 0 1px rgba(49,87,164,.12)}
+.pill-kyc{background:#fff0dc;color:#98621b;font-weight:650;box-shadow:inset 0 0 0 1px rgba(152,98,27,.12)}
+.pill-no-kyc{background:#e3f2ec;color:var(--up);font-weight:650;box-shadow:inset 0 0 0 1px rgba(11,122,85,.1)}
 .type-tag{font-size:11px;padding:2px 9px;border-radius:6px;font-weight:500;white-space:nowrap}
 .type-real{background:rgba(16,64,140,.08);color:var(--navy)}
 .type-token{background:rgba(0,128,255,.1);color:var(--teal)}
+.type-multi{background:#e8f1ff;color:var(--brand-deep);box-shadow:inset 0 0 0 1px rgba(0,128,255,.14);font-weight:650}
 .tbl-src{margin-top:14px;font-size:12.5px;color:var(--muted)}
 .tbl-src a{color:var(--teal)}
 .empty-hint{padding:28px;text-align:center;font-size:14px;color:var(--muted);display:none}
@@ -438,9 +443,9 @@ footer a{color:var(--teal)}
 .hero::after{background:radial-gradient(closest-side,rgba(0,128,255,.12),transparent 70%)}
 /* ── Kraken 式代币滚动带 ── */
 /* ── 行情滚动带 ── */
-.mq-wrap{border-block:1px solid var(--hairline);background:rgba(255,255,255,.65);backdrop-filter:blur(8px)}
-.mq-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;max-width:1120px;margin:0 auto;padding:14px clamp(20px,4vw,44px) 0;flex-wrap:wrap}
-.mq-head h2{font-size:13.5px;font-weight:700;color:var(--ink)}
+.mq-wrap{position:relative;z-index:6;margin-top:-1px;padding-top:56px;border-bottom:1px solid var(--hairline);background:#f7f9fc}
+.mq-head{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:baseline;gap:18px;max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,44px) 26px;flex-wrap:wrap}
+.mq-head h2{font-size:18px;line-height:1.35;font-weight:700;color:var(--ink)}
 .mq-head h2 b{color:var(--brand-deep)}
 .mq-note{font-size:11.5px;color:var(--muted)}
 .marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
@@ -450,7 +455,7 @@ footer a{color:var(--teal)}
 .chg.up{color:#0b7a55}.chg.dn{color:#c2453a}
 .mq-chip .ai{font-size:9px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand-light));border-radius:4px;padding:1px 5px;letter-spacing:.5px;transform:translateY(-1px)}
 
-.marquee{overflow:hidden;border-block:1px solid var(--hairline);background:rgba(255,255,255,.65);backdrop-filter:blur(8px);
+.marquee{position:relative;z-index:1;overflow:hidden;border-top:0;border-bottom:1px solid var(--hairline);background:transparent;
   mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .mq-track{display:flex;gap:12px;width:max-content;padding:15px 0;animation:mq 44s linear infinite}
 .marquee:hover .mq-track{animation-play-state:paused}
@@ -459,6 +464,7 @@ footer a{color:var(--teal)}
   padding:7px 16px;white-space:nowrap;box-shadow:0 1px 3px rgba(16,64,140,.05)}
 .mq-chip b{font-family:var(--data);font-size:13px;font-weight:500;color:var(--brand-deep)}
 .mq-chip span{font-size:11.5px;color:var(--muted)}
+@media(max-width:760px){.mq-wrap{padding-top:34px}.mq-head{padding-bottom:20px}.mq-head h2{font-size:17px}}
 /* ── 光标聚光灯（卡片hover跟随光斑）── */
 .ask-card,.choose-card,.pcard{position:relative;overflow:hidden}
 .ask-card::before,.choose-card::before,.pcard::before{content:"";position:absolute;inset:0;opacity:0;pointer-events:none;
@@ -652,12 +658,12 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
 <section id="where">
   <div class="wrap" data-reveal>
     <h2 class="sec">在哪交易：筛选适合你的平台</h2>
-    <p class="lede">同样是"能买美股"，各平台背后的券商、托管方和账户模式差别很大——点击平台名可直达对应官网。</p>
+    <p class="lede"><b>同一平台可能同时提供真实股票与股票代币。</b> 这类平台统一标记为“多类型”；“代币发行商”标签仅标注对应的代币化股票产品品牌，便于快速区分。</p>
     <div class="filters" role="group" aria-label="平台筛选">
       <button class="fbtn" aria-pressed="true" data-f="all">全部</button>
-      <button class="fbtn" aria-pressed="false" data-f="real">真实股票</button>
-      <button class="fbtn" aria-pressed="false" data-f="token">代币化股票</button>
-      <button class="fbtn" aria-pressed="false" data-f="kyc">需要 KYC</button>
+      <button class="fbtn" aria-pressed="false" data-f="real">真实股票产品线</button>
+      <button class="fbtn" aria-pressed="false" data-f="token">股票代币产品线</button>
+      <button class="fbtn" aria-pressed="false" data-f="no-kyc">无需 KYC</button>
       <button class="fbtn" aria-pressed="false" data-f="wallet">钱包直连</button>
       <button class="fbtn" aria-pressed="false" data-f="selfcustody">自托管</button>
       <button class="fbtn" aria-pressed="false" data-f="sipc">SIPC 直接</button>
@@ -665,14 +671,14 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
     </div>
     <div class="tbl-scroll" role="region" aria-label="平台对比表" tabindex="0">
       <table>
-        <thead><tr><th>平台 / 渠道</th><th>类型</th><th>券商 / 发行结构</th><th>资产去向</th><th>结构要点</th><th>费用</th></tr></thead>
+        <thead><tr><th>平台 / 产品线</th><th>类型</th><th>券商 / 发行结构</th><th>资产去向</th><th>结构要点</th><th>费用</th></tr></thead>
         <tbody id="tbody"></tbody>
       </table>
       <p class="empty-hint" id="empty-t">没有符合当前筛选的平台，试试放宽条件。</p>
     </div>
     <div class="cards" id="cards"></div>
     <p class="empty-hint" id="empty-c">没有符合当前筛选的平台，试试放宽条件。</p>
-    <p class="tbl-src">数据整理自 <a href="https://getrealstocks.com/" rel="noopener">GetRealStocks.com</a>（2026 年 7 月），平台费率与结构可能变化。本站与表中平台无隶属关系，列出仅为客观比较。</p>
+    <p class="tbl-src">产品线整理自 <a href="https://getrealstocks.com/" rel="noopener">GetRealStocks.com</a> 并参考各平台官方资料（资料核对：2026-07-14）。产品、费率、结构与地区限制可能变化。本站与表中平台无隶属关系，列出仅为客观比较。</p>
   </div>
 </section>
 
@@ -860,30 +866,31 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
 /* ── 数据 ── */
 const platforms=[
  {name:"Coinbase",url:"https://www.coinbase.com/stocks",line:"Coinbase Stocks",type:"real",broker:"Coinbase Capital Markets · 托管 Apex",dest:"券商托管账户",fee:"$0 佣金",tags:["real","kyc","sipc"],pills:[["ok","全披露账户"],["ok","SIPC 直接客户"],["ok","ACATS 转出"]]},
- {name:"Kraken",url:"https://www.kraken.com/",line:"Kraken Securities",type:"real",broker:"Kraken Securities LLC · 托管 Alpaca",dest:"券商托管账户",fee:"$0 + 通道费",tags:["real","kyc","sipc"],pills:[["ok","全披露账户"],["ok","SIPC 直接客户"],["warn","仅限美国用户"]]},
- {name:"Crypto.com",url:"https://crypto.com/",line:"Real Shares",type:"real",broker:"Foris Capital US · 托管 Apex",dest:"券商托管账户",fee:"$0 佣金",tags:["real","kyc","sipc"],pills:[["ok","全披露账户"],["ok","SIPC 直接客户"],["ok","独立托管"]]},
- {name:"Binance",url:"https://www.binance.com/",line:"Binance Stocks",type:"real",broker:"Nest Trading · 托管 Alpaca",dest:"交易所账户",fee:"$0.35 或 0.10%",tags:["real","kyc"],pills:[["warn","SIPC 间接"],["ok","可转换为代币"]]},
- {name:"Gate",url:"https://www.gate.com/",line:"Gate Stocks",type:"real",broker:"托管 Alpaca",dest:"交易所账户",fee:"0.10%",tags:["real","kyc"],pills:[["ok","独立托管"],["warn","SIPC 间接"]]},
+ {name:"Kraken",url:"https://www.kraken.com/",line:"Kraken Securities · Backed xStocks",type:"multi",issuer:"xStocks",broker:"真实股票：Kraken Securities / Alpaca；股票代币：1:1 股票抵押追踪凭证",dest:"券商托管账户 / 可提至自托管钱包",fee:"真实股票 $0 + 通道费；xStocks 按交易等级",tags:["real","token","kyc","sipc","selfcustody","defi"],pills:[["ok","真实股票为 SIPC 直接客户"],["self","xStocks 可提币"],["warn","两类产品适用地区不同"]]},
+ {name:"Crypto.com",url:"https://crypto.com/",line:"Real Shares · Tokenized Stocks",type:"multi",issuer:"Crypto.com Tokenized Stocks",broker:"真实股票：Foris Capital US / Apex；股票代币：1:1 底层股票支持",dest:"券商托管账户 / Cronos 钱包",fee:"真实股票 $0；代币活动费率另计",tags:["real","token","kyc","sipc","selfcustody","defi"],pills:[["ok","真实股票为 SIPC 直接客户"],["self","代币可提至 Cronos"],["warn","两类产品适用地区不同"]]},
+ {name:"Binance",url:"https://www.binance.com/",line:"Binance Stocks · bStocks",type:"multi",issuer:"bStocks",broker:"真实股票：Nest Trading / Alpaca；股票代币：1:1 底层股票支持",dest:"券商代持账户 / BNB Chain 钱包",fee:"真实股票 $0.35 或 0.10%；代币标准 0.10%",tags:["real","token","kyc","selfcustody","defi"],pills:[["warn","真实股票 SIPC 间接"],["ok","股票与代币可 1:1 转换"],["self","bStocks 可提币"]]},
+ {name:"Gate",url:"https://www.gate.com/",line:"Gate Stocks · Backed xStocks",type:"multi",issuer:"xStocks",broker:"真实股票：底层托管 Alpaca；股票代币：1:1 股票抵押追踪凭证",dest:"平台内真实股票账户 / xStocks 现货账户",fee:"真实股票 0.10%；代币按现货等级",tags:["real","token","kyc"],pills:[["warn","真实股票 SIPC 间接"],["ok","提供 xStocks 现货"],["warn","两类产品适用地区不同"]]},
  {name:"Backpack",url:"https://backpack.exchange/",line:"Backpack Securities",type:"real",broker:"Backpack Sec. Global 等 · 托管 RQD",dest:"交易所账户",fee:"$0，仅点差",tags:["real","kyc"],pills:[["ok","独立托管"],["warn","SIPC 间接"]]},
  {name:"BIT",url:"https://www.bit.com/",line:"BIT US Stocks",type:"real",broker:"Matrix Gelephu 等 · 托管 RQD",dest:"交易所账户",fee:"$0.005/股 或 0.99%",tags:["real","kyc"],pills:[["warn","账户模式未披露"],["warn","转出机制未披露"]]},
- {name:"Kraken / Bybit / Gate",url:"https://www.kraken.com/zh-cn/pro/xstocks",line:"xStocks 现货",type:"token",broker:"发行商 Backed 等 · 1:1 储备",dest:"交易所账户，部分支持提币",fee:"各所现货费率",tags:["token","kyc"],pills:[["ok","部分支持提币到钱包"],["warn","需 KYC"]]},
- {name:"链上 DEX",url:"https://xstocks.com/",line:"公链去中心化交易所",type:"token",broker:"发行商 Backed 等 · 1:1 储备",dest:"你的自托管钱包",fee:"链上兑换费用",tags:["token","wallet","selfcustody","defi"],pills:[["self","钱包直连"],["ok","地址即账户"]]},
- {name:"DeGate",star:1,url:"https://degate.com/",line:"自托管钱包平台",type:"token",broker:"发行商 Backed 等 · 1:1 储备",dest:"你的自托管钱包",fee:"平台费率",tags:["token","wallet","selfcustody","defi"],pills:[["self","钱包直连"],["ok","支持 DeFi 收益与抵押"]]}
+ {name:"Bybit",url:"https://www.bybit.com/",line:"Backed xStocks 现货",type:"token",issuer:"xStocks",broker:"1:1 股票抵押的追踪凭证",dest:"交易所现货账户",fee:"按 Bybit 现货等级",tags:["token","kyc"],pills:[["ok","xStocks 现货"],["warn","需 KYC"]]},
+ {name:"DeGate",star:1,url:"https://degate.com/",line:"自托管钱包平台",type:"token",issuer:"xStocks / Ondo",broker:"对接 xStocks 与 Ondo Global Markets 链上股票代币",dest:"你的自托管钱包",fee:"仅链上兑换费用",tags:["token","wallet","selfcustody","defi","no-kyc"],pills:[["self","钱包直连"],["ok","支持 DeFi 收益与抵押"]]}
 ];
 const pillHtml=p=>p.map(([c,t])=>`<span class="pill pill-${c}">${t}</span>`).join("");
-const typeTag=t=>t==="real"?'<span class="type-tag type-real">真实股票</span>':'<span class="type-tag type-token">代币化</span>';
+const issuerHtml=p=>p.issuer?`<span class="pill pill-issuer">代币发行商 · ${p.issuer}</span>`:"";
+const kycHtml=p=>p.tags.includes("kyc")?'<span class="pill pill-kyc">需要 KYC</span>':'<span class="pill pill-no-kyc">交易入口无需平台 KYC</span>';
+const typeTag=t=>t==="real"?'<span class="type-tag type-real">真实股票</span>':t==="multi"?'<span class="type-tag type-multi">多类型</span>':'<span class="type-tag type-token">股票代币</span>';
 const tbody=document.getElementById("tbody"),cards=document.getElementById("cards");
 function render(filter){
   const list=platforms.filter(p=>filter==="all"||p.tags.includes(filter));
   tbody.innerHTML=list.map(p=>`<tr${p.star?' class="star-row"':''}>
     <td><a class="plink" href="${p.url}" target="_blank" rel="noopener">${p.star?'<span class="star-mark" title="特色：列表中唯一以自托管钱包直连的交易平台">★</span>':''}<span class="name">${p.name}</span><span class="arr">↗</span></a><br><span class="en">${p.line}</span></td>
     <td>${typeTag(p.type)}</td><td>${p.broker}</td><td>${p.dest}</td>
-    <td>${p.star?'<span class="pill pill-star">★ 特色 · 自托管钱包直连</span>':""}${pillHtml(p.pills)}</td><td>${p.fee}</td></tr>`).join("");
+    <td>${kycHtml(p)}${issuerHtml(p)}${p.star?'<span class="pill pill-star">★ 特色 · 自托管钱包直连</span>':""}${pillHtml(p.pills)}</td><td>${p.fee}</td></tr>`).join("");
   cards.innerHTML=list.map(p=>`<article class="pcard${p.star?' star-card':''}">
     <div class="top"><a class="plink" href="${p.url}" target="_blank" rel="noopener">${p.star?'<span class="star-mark">★</span>':''}<span class="name">${p.name}</span><span class="arr">↗</span></a>${typeTag(p.type)}</div>
     <p class="meta"><b>${p.line}</b> · ${p.broker}</p>
     <p class="meta">资产去向：${p.dest} · 费用：${p.fee}</p>
-    <div>${pillHtml(p.pills)}</div></article>`).join("");
+    <div>${kycHtml(p)}${issuerHtml(p)}${pillHtml(p.pills)}</div></article>`).join("");
   document.getElementById("empty-t").style.display=list.length?"none":"block";
   document.getElementById("empty-c").style.display=list.length?"none":"block";
 }
