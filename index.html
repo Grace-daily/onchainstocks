@@ -658,14 +658,14 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
 <section id="where">
   <div class="wrap" data-reveal>
     <h2 class="sec">在哪交易：筛选适合你的平台</h2>
-    <p class="lede"><b>同一平台可能同时提供真实股票与股票代币。</b> 这类平台统一标记为“多类型”；“代币发行商”标签仅标注对应的代币化股票产品品牌，便于快速区分。</p>
+    <p class="lede"><b>同一平台可能同时提供真实股票与股票代币。</b> 这类平台统一标记为“多类型”；“代币发行商”标签仅标注对应的代币化股票产品品牌。“自托管”描述钱包直连的交易入口，“代币可提至钱包”描述中心化平台提供的资产转出能力。</p>
     <div class="filters" role="group" aria-label="平台筛选">
       <button class="fbtn" aria-pressed="true" data-f="all">全部</button>
       <button class="fbtn" aria-pressed="false" data-f="real">真实股票产品线</button>
       <button class="fbtn" aria-pressed="false" data-f="token">股票代币产品线</button>
       <button class="fbtn" aria-pressed="false" data-f="no-kyc">无需 KYC</button>
-      <button class="fbtn" aria-pressed="false" data-f="wallet">钱包直连</button>
-      <button class="fbtn" aria-pressed="false" data-f="selfcustody">自托管</button>
+      <button class="fbtn" aria-pressed="false" data-f="wallet">自托管</button>
+      <button class="fbtn" aria-pressed="false" data-f="withdraw">代币可提至钱包</button>
       <button class="fbtn" aria-pressed="false" data-f="sipc">SIPC 直接</button>
       <button class="fbtn" aria-pressed="false" data-f="defi">DeFi 收益与抵押</button>
     </div>
@@ -866,14 +866,14 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
 /* ── 数据 ── */
 const platforms=[
  {name:"Coinbase",url:"https://www.coinbase.com/stocks",line:"Coinbase Stocks",type:"real",broker:"Coinbase Capital Markets · 托管 Apex",dest:"券商托管账户",fee:"$0 佣金",tags:["real","kyc","sipc"],pills:[["ok","全披露账户"],["ok","SIPC 直接客户"],["ok","ACATS 转出"]]},
- {name:"Kraken",url:"https://www.kraken.com/",line:"Kraken Securities · Backed xStocks",type:"multi",issuer:"xStocks",broker:"真实股票：Kraken Securities / Alpaca；股票代币：1:1 股票抵押追踪凭证",dest:"券商托管账户 / 可提至自托管钱包",fee:"真实股票 $0 + 通道费；xStocks 按交易等级",tags:["real","token","kyc","sipc","selfcustody","defi"],pills:[["ok","真实股票为 SIPC 直接客户"],["self","xStocks 可提币"],["warn","两类产品适用地区不同"]]},
- {name:"Crypto.com",url:"https://crypto.com/",line:"Real Shares · Tokenized Stocks",type:"multi",issuer:"Crypto.com Tokenized Stocks",broker:"真实股票：Foris Capital US / Apex；股票代币：1:1 底层股票支持",dest:"券商托管账户 / Cronos 钱包",fee:"真实股票 $0；代币活动费率另计",tags:["real","token","kyc","sipc","selfcustody","defi"],pills:[["ok","真实股票为 SIPC 直接客户"],["self","代币可提至 Cronos"],["warn","两类产品适用地区不同"]]},
- {name:"Binance",url:"https://www.binance.com/",line:"Binance Stocks · bStocks",type:"multi",issuer:"bStocks",broker:"真实股票：Nest Trading / Alpaca；股票代币：1:1 底层股票支持",dest:"券商代持账户 / BNB Chain 钱包",fee:"真实股票 $0.35 或 0.10%；代币标准 0.10%",tags:["real","token","kyc","selfcustody","defi"],pills:[["warn","真实股票 SIPC 间接"],["ok","股票与代币可 1:1 转换"],["self","bStocks 可提币"]]},
+ {name:"Kraken",url:"https://www.kraken.com/",line:"Kraken Securities · Backed xStocks",type:"multi",issuer:"xStocks",broker:"真实股票：Kraken Securities / Alpaca；股票代币：1:1 股票抵押追踪凭证",dest:"券商托管账户 / 可提至自托管钱包",fee:"真实股票 $0 + 通道费；xStocks 按交易等级",tags:["real","token","kyc","sipc","withdraw","defi"],pills:[["ok","真实股票为 SIPC 直接客户"],["self","xStocks 可提币"],["warn","两类产品适用地区不同"]]},
+ {name:"Crypto.com",url:"https://crypto.com/",line:"Real Shares · Tokenized Stocks",type:"multi",issuer:"Crypto.com Tokenized Stocks",broker:"真实股票：Foris Capital US / Apex；股票代币：1:1 底层股票支持",dest:"券商托管账户 / Cronos 钱包",fee:"真实股票 $0；代币活动费率另计",tags:["real","token","kyc","sipc","withdraw","defi"],pills:[["ok","真实股票为 SIPC 直接客户"],["self","代币可提至 Cronos"],["warn","两类产品适用地区不同"]]},
+ {name:"Binance",url:"https://www.binance.com/",line:"Binance Stocks · bStocks",type:"multi",issuer:"bStocks",broker:"真实股票：Nest Trading / Alpaca；股票代币：1:1 底层股票支持",dest:"券商代持账户 / BNB Chain 钱包",fee:"真实股票 $0.35 或 0.10%；代币标准 0.10%",tags:["real","token","kyc","withdraw","defi"],pills:[["warn","真实股票 SIPC 间接"],["ok","股票与代币可 1:1 转换"],["self","bStocks 可提币"]]},
  {name:"Gate",url:"https://www.gate.com/",line:"Gate Stocks · Backed xStocks",type:"multi",issuer:"xStocks",broker:"真实股票：底层托管 Alpaca；股票代币：1:1 股票抵押追踪凭证",dest:"平台内真实股票账户 / xStocks 现货账户",fee:"真实股票 0.10%；代币按现货等级",tags:["real","token","kyc"],pills:[["warn","真实股票 SIPC 间接"],["ok","提供 xStocks 现货"],["warn","两类产品适用地区不同"]]},
  {name:"Backpack",url:"https://backpack.exchange/",line:"Backpack Securities",type:"real",broker:"Backpack Sec. Global 等 · 托管 RQD",dest:"交易所账户",fee:"$0，仅点差",tags:["real","kyc"],pills:[["ok","独立托管"],["warn","SIPC 间接"]]},
  {name:"BIT",url:"https://www.bit.com/",line:"BIT US Stocks",type:"real",broker:"Matrix Gelephu 等 · 托管 RQD",dest:"交易所账户",fee:"$0.005/股 或 0.99%",tags:["real","kyc"],pills:[["warn","账户模式未披露"],["warn","转出机制未披露"]]},
  {name:"Bybit",url:"https://www.bybit.com/",line:"Backed xStocks 现货",type:"token",issuer:"xStocks",broker:"1:1 股票抵押的追踪凭证",dest:"交易所现货账户",fee:"按 Bybit 现货等级",tags:["token","kyc"],pills:[["ok","xStocks 现货"],["warn","需 KYC"]]},
- {name:"DeGate",star:1,url:"https://degate.com/",line:"自托管钱包平台",type:"token",issuer:"xStocks / Ondo",broker:"对接 xStocks 与 Ondo Global Markets 链上股票代币",dest:"你的自托管钱包",fee:"仅链上兑换费用",tags:["token","wallet","selfcustody","defi","no-kyc"],pills:[["self","钱包直连"],["ok","支持 DeFi 收益与抵押"]]}
+ {name:"DeGate",star:1,url:"https://degate.com/",line:"自托管钱包平台",type:"token",issuer:"xStocks / Ondo",broker:"对接 xStocks 与 Ondo Global Markets 链上股票代币",dest:"你的自托管钱包",fee:"仅链上兑换费用",tags:["token","wallet","defi","no-kyc"],pills:[["self","钱包直连"],["ok","支持 DeFi 收益与抵押"]]}
 ];
 const pillHtml=p=>p.map(([c,t])=>`<span class="pill pill-${c}">${t}</span>`).join("");
 const issuerHtml=p=>p.issuer?`<span class="pill pill-issuer">代币发行商 · ${p.issuer}</span>`:"";
