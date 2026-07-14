@@ -210,12 +210,15 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .cinema-split-title .split-right{right:clamp(28px,7vw,130px)}
 .market-pulse{position:absolute;z-index:4;top:50%;left:50%;width:min(920px,80vw);transform:translate(-50%,-48%);color:#111820;pointer-events:none}
 .pulse-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(18,45,72,.18) 12%,rgba(18,45,72,.18) 88%,transparent);opacity:var(--value-opacity)}
-.pulse-head{display:flex;align-items:center;justify-content:space-between;padding:12px 28px 16px;font-family:var(--data);font-size:11px;letter-spacing:.12em;color:#708095;text-transform:uppercase;opacity:var(--value-opacity)}
-.pulse-head-left{display:flex;align-items:center;gap:14px}.pulse-head a{color:#4d6077;text-decoration:none;pointer-events:none;transition:color .2s ease}.pulse-head a:hover{color:#087fe7}
-.pulse-live{display:inline-flex!important;align-items:center;gap:7px;margin-top:0!important;color:#087fe7!important}
-.pulse-live::before{content:"";width:6px;height:6px;border-radius:50%;background:#f5b942;box-shadow:0 0 0 5px rgba(245,185,66,.12)}
-.market-pulse[data-status="live"] .pulse-live::before{background:#19a879;box-shadow:0 0 0 5px rgba(25,168,121,.12)}
-.market-pulse[data-status="error"] .pulse-live::before{background:#93a0af;box-shadow:none}
+.pulse-head{position:relative;display:flex;align-items:center;justify-content:space-between;padding:12px 28px 16px;font-family:var(--data);font-size:11px;letter-spacing:.12em;color:#708095;text-transform:uppercase;opacity:var(--value-opacity)}
+.pulse-head-left{display:flex;align-items:center;gap:14px}
+.market-status-trigger{display:inline-flex;align-items:center;gap:9px;border:1px solid #bdddf8;border-radius:999px;background:#edf6ff;padding:8px 12px;color:#0872cf;font:650 11px/1 var(--data);letter-spacing:.05em;text-transform:none;box-shadow:0 4px 12px rgba(8,127,231,.08);cursor:pointer;pointer-events:none;transition:border-color .2s ease,background .2s ease,color .2s ease}
+.market-status-trigger:hover{border-color:#7ebef2;background:#e4f2ff;color:#065ba8}.market-status-trigger:focus-visible{outline:3px solid rgba(8,127,231,.18);outline-offset:3px}
+.market-status-dot{width:7px;height:7px;border-radius:50%;background:#93a0af;box-shadow:0 0 0 5px rgba(147,160,175,.12)}
+.market-status-trigger[data-session="overnight"] .market-status-dot{background:#4d95f5;box-shadow:0 0 0 5px rgba(77,149,245,.12)}
+.market-status-trigger[data-session="premarket"] .market-status-dot,.market-status-trigger[data-session="afterhours"] .market-status-dot{background:#e5a11a;box-shadow:0 0 0 5px rgba(229,161,26,.13)}
+.market-status-trigger[data-session="regular"] .market-status-dot{background:#19a879;box-shadow:0 0 0 5px rgba(25,168,121,.12)}
+.market-status-caret{font-size:12px;line-height:1;transform:translateY(-1px);transition:transform .2s ease}.market-status-trigger[aria-expanded="true"] .market-status-caret{transform:translateY(-1px) rotate(180deg)}
 .pulse-grid{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(3,1fr);min-height:min(620px,calc(100vh - 140px));padding:0}
 .pulse-stat{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;align-items:center;min-width:0;padding:36px 42px}.pulse-stat:not(:first-child)::before{display:none}
 .pulse-stat-label{grid-column:1;grid-row:1;display:block;margin:0;font-size:clamp(23px,2vw,30px);font-weight:500;color:#26384d;opacity:var(--brief-opacity)}
@@ -227,7 +230,15 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .pulse-scope{margin:7px 0 0;text-align:center;font-size:9px;line-height:1.6;color:#8a96a6;opacity:var(--value-opacity)}
 .cinematic-hero[data-stage="morph"] .cinema-scroll,.cinematic-hero[data-stage="open"] .cinema-scroll{opacity:0}
 .cinematic-hero[data-stage="open"] .hero-copy{pointer-events:none}
-.cinematic-hero[data-stage="open"] .pulse-head a{pointer-events:auto}
+.cinematic-hero[data-stage="open"] .market-status-trigger{pointer-events:auto}
+
+.market-hours-popover[hidden]{display:none}.market-hours-popover{position:absolute;z-index:20;top:54px;left:126px;width:410px;padding:20px;border:1px solid #d7e3ef;border-radius:18px;background:#fff;color:#0b1728;box-shadow:0 22px 55px rgba(29,60,95,.18),0 3px 10px rgba(29,60,95,.08);pointer-events:auto;text-transform:none;letter-spacing:0}
+.market-hours-popover::before{content:"";position:absolute;top:-7px;left:54px;width:13px;height:13px;border-top:1px solid #d7e3ef;border-left:1px solid #d7e3ef;background:#fff;transform:rotate(45deg)}
+.market-hours-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.market-hours-close{display:grid;flex:0 0 auto;place-items:center;width:30px;height:30px;border:1px solid #d9e4ef;border-radius:50%;background:#fff;color:#708297;font-size:18px;line-height:1;cursor:pointer}.market-hours-close:hover{background:#f4f8fc}.market-hours-close:focus-visible{outline:3px solid rgba(8,127,231,.18);outline-offset:2px}
+.market-hours-kicker{margin-bottom:7px;color:#6f87a2;font:650 9px/1 var(--data);letter-spacing:.15em;text-transform:uppercase}.market-hours-popover h2{margin:0;font-size:21px;line-height:1.2;color:#0b1728}.market-hours-current{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 14px;padding:11px 12px;border-radius:12px;background:#f2f8ff;color:#31516f;font-size:12px}.market-hours-current b{color:#0872cf;font-size:13px;font-weight:650;text-align:right}
+.market-session-list{display:grid;gap:2px;margin:0}.market-session{display:grid;grid-template-columns:14px 1fr auto;align-items:center;gap:8px;padding:8px 9px;border-radius:9px;color:#8b99aa;font-size:12px}.market-session.is-active{background:#f7faff;color:#0b1728;font-weight:650}.market-session-dot{width:7px;height:7px;border-radius:50%;background:#5398ef}.market-session[data-session="premarket"] .market-session-dot,.market-session[data-session="afterhours"] .market-session-dot{background:#e2a11b}.market-session[data-session="regular"] .market-session-dot{background:#16a275}.market-session strong{font-size:12px;font-weight:inherit}.market-session time{font:600 11px/1 var(--data);font-variant-numeric:tabular-nums}
+.market-timeline{position:relative;display:grid;grid-template-columns:8fr 5.5fr 6.5fr 4fr;height:6px;margin:15px 7px 17px;border-radius:99px;overflow:visible}.market-timeline span{height:6px}.market-timeline .tl-overnight{border-radius:99px 0 0 99px;background:#5398ef}.market-timeline .tl-premarket,.market-timeline .tl-afterhours{background:#e2a11b}.market-timeline .tl-afterhours{border-radius:0 99px 99px 0}.market-timeline .tl-regular{background:#16a275}.market-timeline-marker{position:absolute;top:50%;width:3px;height:16px;border-radius:3px;background:#14263b;box-shadow:0 0 0 3px rgba(255,255,255,.9);transform:translate(-50%,-50%)}
+.market-countdown{display:block;margin:0;color:#1a2a3e;font-size:18px;font-weight:700;letter-spacing:-.01em}.market-hours-note{margin:5px 0 0;color:#94a2b3;font-size:10px;line-height:1.5}
 @media(max-width:900px){
   .cinematic-hero{min-height:calc(100svh + 680px)}
   .cinema-stage{position:sticky;top:64px;height:calc(100svh - 64px);min-height:0}
@@ -236,13 +247,16 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
   .cinema-split-title{display:none}
   .cinema-scroll{display:flex;bottom:18px}.cinema-scroll span{font-size:0}.cinema-scroll span::after{content:"上滑探索";font-size:9px}
   .market-pulse{top:20%;bottom:auto;width:calc(100% - 72px);padding:8px 0 10px;transform:translate(-50%,14px);color:#111820}
-  .pulse-head,.pulse-rule,.pulse-scope{display:none}
+  .pulse-head{display:flex;padding:0 0 10px}.pulse-head-left>span:first-child,.pulse-head>span:last-child{display:none}.pulse-rule,.pulse-scope{display:none}
+  .market-status-trigger{font-size:10px}
+  .market-hours-popover{top:48px;left:0;width:min(410px,calc(100vw - 72px))}
+  .market-hours-popover::before{left:42px}
   .pulse-grid{grid-template-columns:1fr;grid-template-rows:repeat(3,auto);min-height:0;padding:0}
   .pulse-stat{padding:11px 3px}.pulse-stat:not(:first-child)::before{right:0;left:0}
   .pulse-stat-label{grid-column:1;grid-row:1;margin:0;font-size:12px}.pulse-number{grid-column:2;grid-row:1 / span 2;font-size:27px}.pulse-change{grid-column:1;grid-row:2;margin-top:3px;font-size:9px}
   .cinematic-hero[data-stage="open"] .market-pulse{pointer-events:none}
 }
-@media(max-width:560px){.pulse-number{font-size:24px}.cinematic-hero h1{font-size:clamp(34px,10.5vw,48px)}}
+@media(max-width:560px){.pulse-number{font-size:24px}.cinematic-hero h1{font-size:clamp(34px,10.5vw,48px)}.market-hours-popover{width:calc(100vw - 72px);max-height:calc(100svh - 230px);overflow-y:auto;padding:18px 16px}.market-hours-popover h2{font-size:19px}.market-hours-current{align-items:flex-start;flex-direction:column;gap:4px}.market-hours-current b{text-align:left}.market-session{padding:8px 6px}.market-session time{font-size:10px}.market-countdown{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.cinema-split-title{display:none}.market-pulse{opacity:1}.odo-strip{transition:none}.market-pulse .odo-strip{transform:translateY(calc(var(--roll) * -1em))}}
 
 /* SVG 流动/发光 */
@@ -564,7 +578,23 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
       </div>
     </div>
     <div class="market-pulse" id="market-pulse" data-status="loading" aria-live="polite">
-      <div class="pulse-head"><div class="pulse-head-left"><span>Market pulse</span><a href="https://getrealstocks.com/" target="_blank" rel="noopener">数据源：Get Real Stocks ↗</a><span class="pulse-live" id="pulse-state">已同步</span></div><span id="pulse-time">最近更新：2026/07/13 18:16（北京时间）</span></div>
+      <div class="pulse-head">
+        <div class="pulse-head-left"><span>Market pulse</span><button class="market-status-trigger" id="market-status-trigger" type="button" data-session="closed" aria-haspopup="dialog" aria-controls="market-hours-popover" aria-expanded="false"><span class="market-status-dot" aria-hidden="true"></span><span id="market-status-label">美股状态计算中</span><span class="market-status-caret" aria-hidden="true">⌄</span></button></div>
+        <span id="pulse-time">最近更新：2026/07/13 18:16（北京时间）</span>
+        <section class="market-hours-popover" id="market-hours-popover" role="dialog" aria-modal="false" aria-labelledby="market-hours-title" hidden>
+          <div class="market-hours-head"><div><div class="market-hours-kicker">US EQUITIES · 北京时间</div><h2 id="market-hours-title">真实美股交易时段</h2></div><button class="market-hours-close" id="market-hours-close" type="button" aria-label="关闭交易时段详情">×</button></div>
+          <p class="market-hours-current"><span>当前状态</span><b id="market-hours-current">计算中</b></p>
+          <div class="market-session-list" aria-label="美股交易时段">
+            <div class="market-session" data-session="overnight"><span class="market-session-dot"></span><strong>夜盘</strong><time id="hours-overnight">—</time></div>
+            <div class="market-session" data-session="premarket"><span class="market-session-dot"></span><strong>盘前交易</strong><time id="hours-premarket">—</time></div>
+            <div class="market-session" data-session="regular"><span class="market-session-dot"></span><strong>常规交易</strong><time id="hours-regular">—</time></div>
+            <div class="market-session" data-session="afterhours"><span class="market-session-dot"></span><strong>盘后交易</strong><time id="hours-afterhours">—</time></div>
+          </div>
+          <div class="market-timeline" aria-hidden="true"><span class="tl-overnight"></span><span class="tl-premarket"></span><span class="tl-regular"></span><span class="tl-afterhours"></span><i class="market-timeline-marker" id="market-timeline-marker"></i></div>
+          <strong class="market-countdown" id="market-countdown">正在计算下一时段</strong>
+          <p class="market-hours-note">按纽约时间换算；节假日及不同券商可用时段可能不同。</p>
+        </section>
+      </div>
       <div class="pulse-rule"></div>
       <div class="pulse-grid" id="pulse-grid"></div>
       <div class="pulse-rule"></div>
@@ -1087,7 +1117,7 @@ const TICKERS=[
  {id:"nasdaq-xstock",t:"QQQx",n:"Nasdaq ETF"}
 ];
 const track=document.getElementById("mq-track"),mqNote=document.getElementById("mq-note");
-const marketPulse=document.getElementById("market-pulse"),pulseGrid=document.getElementById("pulse-grid"),pulseTime=document.getElementById("pulse-time"),pulseState=document.getElementById("pulse-state");
+const marketPulse=document.getElementById("market-pulse"),pulseGrid=document.getElementById("pulse-grid"),pulseTime=document.getElementById("pulse-time");
 let marketMetrics=[
   {label:"现货成交量 · 24H",value:"$96.1M",changePct:115.60},
   {label:"合约成交量 · 24H",value:"$13.4B",changePct:15.83},
@@ -1127,7 +1157,6 @@ function applyMarketData(data){
   if(!data||!Array.isArray(data.metrics)||data.metrics.length!==3)return false;
   marketMetrics=data.metrics;
   pulseTime.textContent=`最近更新：${formatMarketTime(data.updatedAt)}（北京时间）`;
-  pulseState.textContent="已同步";
   marketPulse.dataset.status="live";
   renderMarketMetrics();
   return true;
@@ -1141,10 +1170,107 @@ async function loadMarketOverview(){
     const data=await r.json();
     if(!applyMarketData(data))throw 0;
   }catch(e){
-    if(!hasInline){pulseState.textContent="暂未同步";marketPulse.dataset.status="error";}
+    if(!hasInline)marketPulse.dataset.status="error";
   }
 }
 renderMarketMetrics();loadMarketOverview();
+
+/* ── 真实美股交易状态（纽约时区动态换算） ── */
+const MARKET_SESSION_META={
+  overnight:{label:"夜盘",short:"夜盘 · 进行中"},
+  premarket:{label:"盘前交易",short:"盘前 · 进行中"},
+  regular:{label:"常规交易",short:"常规交易 · 已开盘"},
+  afterhours:{label:"盘后交易",short:"盘后 · 进行中"},
+  closed:{label:"休市",short:"美股休市"}
+};
+const US_MARKET_HOLIDAYS_2026=new Set(["2026-01-01","2026-01-19","2026-02-16","2026-04-03","2026-05-25","2026-06-19","2026-07-03","2026-09-07","2026-11-26","2026-12-25"]);
+const US_MARKET_EARLY_CLOSE_2026=new Set(["2026-11-27","2026-12-24"]);
+const nyFormatter=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit",weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"});
+const etOffsetFormatter=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",timeZoneName:"shortOffset"});
+function nyParts(date){
+  const parts=nyFormatter.formatToParts(date),get=type=>parts.find(x=>x.type===type)?.value||"";
+  const week={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+  return {year:+get("year"),month:+get("month"),day:+get("day"),weekday:week[get("weekday")],hour:+get("hour"),minute:+get("minute"),second:+get("second")};
+}
+function nyDateKey(parts,shift=0){
+  const d=new Date(Date.UTC(parts.year,parts.month-1,parts.day+shift));
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,"0")}-${String(d.getUTCDate()).padStart(2,"0")}`;
+}
+function isTradingDate(key,weekday){return weekday>=1&&weekday<=5&&!US_MARKET_HOLIDAYS_2026.has(key)}
+function marketSessionAt(date){
+  const p=nyParts(date),key=nyDateKey(p),mins=p.hour*60+p.minute,isTrading=isTradingDate(key,p.weekday),early=US_MARKET_EARLY_CLOSE_2026.has(key);
+  if(isTrading){
+    if(mins<240)return {id:"overnight",parts:p};
+    if(mins<570)return {id:"premarket",parts:p};
+    if(mins<(early?780:960))return {id:"regular",parts:p};
+    if(!early&&mins<1200)return {id:"afterhours",parts:p};
+  }
+  if(mins>=1200){
+    const nextWeekday=(p.weekday+1)%7,nextKey=nyDateKey(p,1);
+    if(isTradingDate(nextKey,nextWeekday))return {id:"overnight",parts:p};
+  }
+  return {id:"closed",parts:p};
+}
+function easternOffsetHours(date){
+  const name=etOffsetFormatter.formatToParts(date).find(x=>x.type==="timeZoneName")?.value||"GMT-5";
+  const match=name.match(/GMT([+-]\d{1,2})(?::(\d{2}))?/);
+  if(!match)return -5;
+  const sign=Number(match[1])<0?-1:1;
+  return Number(match[1])+sign*(Number(match[2]||0)/60);
+}
+function bjTimeFromEt(hour,minute,date){
+  const total=(hour*60+minute+(8-easternOffsetHours(date))*60+1440)%1440;
+  return `${String(Math.floor(total/60)).padStart(2,"0")}:${String(total%60).padStart(2,"0")}`;
+}
+function findNextSessionChange(now,currentId){
+  const start=now.getTime(),step=5*60*1000,max=9*24*12;
+  for(let i=1;i<=max;i++){
+    const probe=start+i*step;
+    if(marketSessionAt(new Date(probe)).id!==currentId){
+      let lo=probe-step,hi=probe;
+      while(hi-lo>1000){const mid=Math.floor((lo+hi)/2);if(marketSessionAt(new Date(mid)).id===currentId)lo=mid;else hi=mid;}
+      return new Date(hi);
+    }
+  }
+  return new Date(start+24*60*60*1000);
+}
+function durationText(ms){
+  const total=Math.max(0,Math.ceil(ms/60000)),hours=Math.floor(total/60),minutes=total%60;
+  return `${hours?hours+"小时 ":""}${minutes}分钟`;
+}
+const marketStatusTrigger=document.getElementById("market-status-trigger"),marketStatusLabel=document.getElementById("market-status-label"),marketHoursPopover=document.getElementById("market-hours-popover"),marketHoursClose=document.getElementById("market-hours-close"),marketHoursCurrent=document.getElementById("market-hours-current"),marketCountdown=document.getElementById("market-countdown"),marketTimelineMarker=document.getElementById("market-timeline-marker");
+let marketClockSession="",marketNextChange=null;
+function updateMarketClock(){
+  const now=new Date(),session=marketSessionAt(now);
+  if(session.id!==marketClockSession||!marketNextChange||now>=marketNextChange){marketClockSession=session.id;marketNextChange=findNextSessionChange(now,session.id)}
+  const next=marketSessionAt(new Date(marketNextChange.getTime()+60000));
+  marketStatusTrigger.dataset.session=session.id;
+  marketStatusLabel.textContent=MARKET_SESSION_META[session.id].short;
+  marketStatusTrigger.setAttribute("aria-label",`${MARKET_SESSION_META[session.id].short}，点击查看交易时段`);
+  const untilChange=durationText(marketNextChange-now);
+  marketHoursCurrent.textContent=session.id==="closed"?`${MARKET_SESSION_META[session.id].label} · ${untilChange}后开始${MARKET_SESSION_META[next.id].label}`:`${MARKET_SESSION_META[session.id].label} · ${untilChange}后结束`;
+  marketCountdown.textContent=`下一阶段：${MARKET_SESSION_META[next.id].label}`;
+  document.querySelectorAll(".market-session").forEach(row=>row.classList.toggle("is-active",row.dataset.session===session.id));
+  const elapsed=session.parts.hour*60+session.parts.minute>=1200?session.parts.hour*60+session.parts.minute-1200:session.parts.hour*60+session.parts.minute+240;
+  marketTimelineMarker.style.left=`${Math.min(100,Math.max(0,elapsed/1440*100))}%`;
+  document.getElementById("hours-overnight").textContent=`${bjTimeFromEt(20,0,now)}–${bjTimeFromEt(4,0,now)}`;
+  document.getElementById("hours-premarket").textContent=`${bjTimeFromEt(4,0,now)}–${bjTimeFromEt(9,30,now)}`;
+  document.getElementById("hours-regular").textContent=`${bjTimeFromEt(9,30,now)}–${bjTimeFromEt(16,0,now)}`;
+  document.getElementById("hours-afterhours").textContent=`${bjTimeFromEt(16,0,now)}–${bjTimeFromEt(20,0,now)}`;
+}
+function setMarketHoursOpen(open){
+  marketHoursPopover.hidden=!open;marketStatusTrigger.setAttribute("aria-expanded",String(open));
+  if(open){updateMarketClock();gaTrack("market_hours_open",{session:marketClockSession})}
+}
+function closeMarketHours(){
+  setMarketHoursOpen(false);marketStatusTrigger.focus();
+}
+marketStatusTrigger.addEventListener("click",e=>{e.stopPropagation();setMarketHoursOpen(marketHoursPopover.hidden)});
+marketHoursClose.addEventListener("click",closeMarketHours);
+marketHoursPopover.addEventListener("click",e=>e.stopPropagation());
+document.addEventListener("click",()=>{if(!marketHoursPopover.hidden)setMarketHoursOpen(false)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!marketHoursPopover.hidden)closeMarketHours()});
+updateMarketClock();setInterval(updateMarketClock,30000);
 const chipHtml=(x,d)=>{
   let px="",chg="";
   if(d&&d.usd!=null){
