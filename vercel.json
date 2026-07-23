@@ -55,6 +55,10 @@
   ],
   "rewrites": [
     {
+      "source": "/.well-known/api-catalog",
+      "destination": "/api-catalog.json"
+    },
+    {
       "source": "/crs",
       "destination": "/crs.html"
     }
