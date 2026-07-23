@@ -1,0 +1,30 @@
+# 链上股票指南 | ONCHAIN STOCKS GUIDE
+
+> 面向中文读者的独立教育性指南，帮助读者理解链上股票、代币化股票、真实股票、托管结构、自托管钱包，以及 CRS 与 CARF 相关的信息路径。
+
+## 主要页面
+
+- [链上股票指南](https://onchainstocks.guide/)
+  - 介绍链上股票的主要形态、真实股票与代币化股票的结构差异、常见平台与持有路径。
+- [CRS 与链上股票](https://onchainstocks.guide/crs)
+  - 解释 CRS 的基本机制、机构账户与自托管地址的信息路径差异，以及 CARF 的发展方向。
+
+## 机器可读资源
+
+- [站点信息 API](https://onchainstocks.guide/api/site.json)
+- [OpenAPI 描述](https://onchainstocks.guide/openapi.json)
+- [API 文档](https://onchainstocks.guide/docs/api.md)
+- [API Catalog](https://onchainstocks.guide/.well-known/api-catalog)
+- [Sitemap](https://onchainstocks.guide/sitemap.xml)
+
+## 内容边界
+
+- 本站提供一般性教育信息，不构成税务、法律或投资建议。
+- 平台结构、可服务地区、费率、法规及申报框架可能变化，请以相关机构和主管机关的最新官方披露为准。
+- 自托管可能改变机构账户层面的信息路径，但不代表信息不可见，也不会自动免除个人依法申报的义务。
+
+## 引用建议
+
+名称：链上股票指南（ONCHAIN STOCKS GUIDE）
+网址：https://onchainstocks.guide/
+语言：简体中文

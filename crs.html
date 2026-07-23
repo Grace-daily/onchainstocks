@@ -14,6 +14,8 @@
 <title>CRS 是什么？共同申报准则与链上美股托管结构的关系 | 链上股票指南</title>
 <meta name="description" content="CRS（共同申报准则）科普：信息交换如何运作、作用于哪类账户；真实股票（券商代持）与代币化股票（自托管钱包）两种链上美股模式在 CRS 框架下的不同位置；以及无论哪种选择都不变的纳税申报义务。">
 <link rel="canonical" href="https://onchainstocks.guide/crs">
+<link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
+<link rel="describedby" href="/llms.txt" type="text/plain">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon-180.png">
 <meta property="og:title" content="CRS 是什么？共同申报准则与链上美股托管结构的关系">
@@ -31,8 +33,8 @@
   "mainEntity": [
     {"@type":"Question","name":"CRS 是什么？","acceptedAnswer":{"@type":"Answer","text":"CRS（Common Reporting Standard，共同申报准则）是 OECD 主导的金融账户涉税信息自动交换标准。参与辖区的金融机构每年识别非本地税务居民的账户，将余额与收入信息报送本地税务机关，并交换至账户持有人的税务居民国。中国自 2017 年起参与。CRS 交换的是信息，本身不是一种税。"}},
     {"@type":"Question","name":"在中心化交易所购买链上美股会涉及 CRS 吗？","acceptedAnswer":{"@type":"Answer","text":"中心化交易所通常要求完成 KYC 实名认证，属于受监管的金融中介。在其属于 CRS 参与辖区的应报送金融机构时，账户信息可能按规则被报送和交换。具体以交易所注册地的法规执行为准。"}},
-    {"@type":"Question","name":"自托管钱包持有代币化股票涉及 CRS 报送吗？","acceptedAnswer":{"@type":"Answer","text":"自托管钱包由用户自行保管私钥，不存在托管你资产的金融机构，因此不产生金融机构层面的 CRS 账户报送。但个人的纳税申报义务来自税法本身，不因持有形式改变而消失。涉及个人税务问题请咨询持牌税务师。"}},
-    {"@type":"Question","name":"选择自托管是不是就不用报税了？","acceptedAnswer":{"@type":"Answer","text":"不是。CRS 影响的只是金融机构层面的信息报送路径；个人境外所得的申报纳税义务来自所在辖区税法，与资产持有形式无关。任何以规避申报义务为目的的安排都可能带来法律后果。"}}
+    {"@type":"Question","name":"自托管钱包持有代币化股票涉及 CRS 报送吗？","acceptedAnswer":{"@type":"Answer","text":"自托管地址本身通常不等同于由申报金融机构维护的传统金融账户，但是否存在其他信息收集或报送路径，还取决于交易所、发行商、服务商、所在辖区规则以及 CARF 等框架的落地情况。个人申报义务也不会因持有形式改变。涉及个人税务问题请咨询持牌税务师。"}},
+    {"@type":"Question","name":"选择自托管是不是就不用报税了？","acceptedAnswer":{"@type":"Answer","text":"不是。托管方式可能影响机构层面的信息收集与报送路径，但个人境外所得的申报纳税义务来自所在辖区税法，与资产持有形式无关。任何以规避申报义务为目的的安排都可能带来法律后果。"}}
   ]
 }
 </script>
@@ -207,7 +209,7 @@ summary::after{color:var(--brand)}
   <div class="wrap">
     <a class="logo" href="./index.html" aria-label="链上股票指南首页">
       <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="#005fcc" stroke-width="2.5"/><path d="M20.5 11.5 L18 18 L11.5 20.5 L14 14 Z" fill="#005fcc"/><circle cx="16" cy="16" r="1.8" fill="#f5b942"/></svg>
-      <span class="name">链上股票指南</span><span class="en">ONSTOCK GUIDE</span>
+      <span class="name">链上股票指南</span><span class="en">ONCHAIN STOCKS GUIDE</span>
     </a>
     <div class="nav-links">
       <a href="./index.html#types">两种类型</a>
@@ -223,7 +225,7 @@ summary::after{color:var(--brand)}
   <div class="wrap">
     <div>
       <h1><span class="en">CRS</span> 与托管结构：把这层关系讲清楚，你才好做选择</h1>
-      <p class="hero-lede">在真实股票和代币化股票之间犹豫的投资者，很多时候真正想弄懂的是：托管结构和 CRS 到底是什么关系？这一页只做一件事——把规则如实讲清。理解之后，选托管模式还是自托管钱包，答案在你自己手里。先把结论放在最前面：<b style="color:var(--ink)">自托管改变的只是机构账户的报送路径，不改变你个人依法申报的义务。</b></p>
+      <p class="hero-lede">在真实股票和代币化股票之间犹豫的投资者，很多时候真正想弄懂的是：托管结构和 CRS 到底是什么关系？这一页只做一件事——把规则如实讲清。先把结论放在最前面：<b style="color:var(--ink)">自托管可能改变机构账户层面的信息路径，但不等于信息不可见，也不改变你个人依法申报的义务。</b></p>
     </div>
     <div class="hero-art" aria-hidden="true">
       <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="示意图：金融机构账户在 CRS 报送范围内并向税务机关报送信息；自托管钱包不属于传统金融机构托管账户">
@@ -242,13 +244,13 @@ summary::after{color:var(--brand)}
         <rect x="60" y="202" width="160" height="66" rx="10" fill="#fff" stroke="#c6d6ea" stroke-width="1.5"/>
         <text x="140" y="230" text-anchor="middle" font-family="Noto Sans SC" font-size="13" fill="#425466">金融机构账户</text>
         <text x="140" y="250" text-anchor="middle" font-family="Spline Sans Mono" font-size="9.5" fill="#7d93b3">bank · broker · CEX</text>
-        <!-- 范围之外：自托管钱包 -->
+        <!-- 非传统金融账户路径：自托管钱包 -->
         <text x="342" y="62" text-anchor="middle" font-family="Spline Sans Mono" font-size="11" fill="#4d82c4">非传统金融账户路径</text>
         <rect x="284" y="180" width="116" height="88" rx="12" fill="#eaf4ff" stroke="#66b3ff" stroke-width="1.5" stroke-dasharray="6 5"/>
         <text x="342" y="216" text-anchor="middle" font-family="Noto Sans SC" font-size="13" fill="#005fcc">自托管钱包</text>
         <text x="342" y="236" text-anchor="middle" font-family="Spline Sans Mono" font-size="9.5" fill="#4d82c4">self-custody</text>
-        <text x="342" y="256" text-anchor="middle" font-family="Noto Sans SC" font-size="10" fill="#4d82c4">无托管机构账户*</text>
-        <!-- 断开的连接：短线 + 端点，表达"没有报送路径" -->
+        <text x="342" y="256" text-anchor="middle" font-family="Noto Sans SC" font-size="10" fill="#4d82c4">地址由本人控制*</text>
+        <!-- 断开的连接：说明不等同于传统托管账户，不代表不存在其他信息路径 -->
         <path d="M342 176 V148" stroke="#66b3ff" stroke-width="1.6" stroke-dasharray="3 6" stroke-linecap="round" fill="none"/>
         <circle cx="342" cy="142" r="4" fill="none" stroke="#66b3ff" stroke-width="1.6"/>
         <path d="M339 145 l6 -6" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round"/>
@@ -262,7 +264,7 @@ summary::after{color:var(--brand)}
   <div class="wrap define">
     <div class="define-main">
       <p class="term">CRS<small>Common Reporting Standard · 共同申报准则</small></p>
-      <p>CRS 是 OECD 主导的<b>金融账户涉税信息自动交换标准</b>：参与辖区的金融机构每年识别非本地税务居民的账户，把余额、利息、股息等信息报送本地税务机关，再自动交换到账户持有人的税务居民国。理解它只需要抓住两点——它交换的是<b>信息</b>而非税款，它作用的对象是<b>金融机构托管的账户</b>。</p>
+      <p>CRS 是 OECD 主导的<b>金融账户涉税信息自动交换标准</b>：参与辖区的申报金融机构识别应申报账户，把余额、利息、股息等信息报送本地税务机关，再按适用安排交换到账户持有人的税务居民辖区。理解它要抓住两点——它交换的是<b>信息</b>而非税款；具体是否申报，要看机构、账户、辖区和产品在当地规则下的分类。</p>
     </div>
     <div class="define-side">
       <div class="note"><p class="fig">2017 —</p><h3>中国已参与交换</h3><p>中国自 2017 年起参与 CRS，与百余个辖区（含中国香港、新加坡等）开展年度信息交换。</p></div>
@@ -282,7 +284,7 @@ summary::after{color:var(--brand)}
       <div class="flow-arrow" aria-hidden="true">→</div>
       <div class="flow-node"><p class="stage">交换</p><h3>你的税务居民国</h3><p>信息通过辖区间自动交换机制传回，用于税收征管参考。</p></div>
     </div>
-    <p class="flow-note"><b>关键点：</b>这条链路的起点是"金融机构替你管着账户"。链路是否存在，取决于你选择的托管结构——这正是它与链上美股两种模式产生关联的地方。</p>
+    <p class="flow-note"><b>关键点：</b>传统 CRS 链路通常从申报金融机构维护的应申报账户开始。具体是否以及如何报送，还取决于机构分类、账户类型、产品结构和所在辖区规则——这正是它与链上美股产生关联的地方。</p>
   </div>
 </section>
 
@@ -294,27 +296,27 @@ summary::after{color:var(--brand)}
       <article class="pos-card">
         <h3>真实股票 / 交易所内的代币化股票</h3>
         <p class="sub">机构托管 · KYC 账户</p>
-        <p>你在交易所或券商处持有 <b>KYC 实名账户</b>，机构替你托管资产——这正是 CRS 报送框架作用的账户类型。</p>
-        <p>当机构属于参与辖区的应报送金融机构时，你的账户信息可能按规则被报送和交换。对如实申报的投资者，这只是信息透明，<b>不构成额外负担</b>；换来的是 SIPC 等传统投资者保护（具体层级见主页表一）。</p>
+        <p>你在交易所或券商处持有 <b>KYC 实名账户</b>，机构替你维护账户或托管资产。若该机构和账户在当地规则下属于申报范围，相关信息可能按规则被报送和交换。</p>
+        <p>CRS 本身不新增税种；是否产生税款仍取决于适用税法。传统账户可能同时提供投资者保护与申诉渠道，但具体保护范围需以券商、托管安排和所在地规则为准（见主页平台表）。</p>
       </article>
       <article class="pos-card hl">
         <h3>代币化股票 + 自托管钱包</h3>
         <p class="sub">私钥自持 · 地址即账户</p>
-        <p>你的股票代币存放在<b>自己的钱包地址</b>，没有金融机构替你托管账户，因此不产生机构层面的 CRS 账户报送。</p>
-        <p>但要看清这句话的边界：它描述的是<b>报送路径的差异</b>，不是纳税义务的豁免；同时你放弃了机构托管带来的保护层，钱包安全完全由自己负责。</p>
+        <p>你的股票代币存放在<b>自己的钱包地址</b>时，该地址本身通常不等同于由申报金融机构维护的传统金融账户。</p>
+        <p>但这不代表信息不可见或没有其他报送路径：交易所、发行商、出入金服务商可能依法收集信息，CARF 等框架也在逐步落地。它描述的是<b>信息路径与托管责任的差异</b>，不是纳税义务的豁免。</p>
       </article>
     </div>
     <div class="duty">
       <h3>无论选哪种，都不会改变的一件事</h3>
-      <p>个人境外所得的申报纳税义务来自你所在辖区的税法，与资产形态、托管方式无关。CRS 只影响税务机关"通过什么路径看到信息"，不影响义务本身。任何以规避申报义务为目的的安排都可能带来滞纳金、罚款乃至更严重的法律后果。涉及个人申报的具体问题，请咨询持牌税务师。</p>
+      <p>个人申报纳税义务来自你所在辖区的税法，不因资产形态或托管方式自动消失。CRS、CARF、平台 KYC、链上公开记录和出入金记录可能形成不同的信息路径。任何以规避申报义务为目的的安排都可能带来法律后果；涉及个人申报的具体问题，请咨询持牌税务师。</p>
     </div>
   </div>
 </section>
 
 <section id="options">
   <div class="wrap">
-    <h2>理解规则之后：自托管路径的几种走法</h2>
-    <p class="lede">如果你权衡后倾向"私钥自持"这一侧，以下是目前的主要走法，按上手难度排列。选择哪一种，取决于你对链上操作的熟悉程度。</p>
+    <h2>理解结构之后：三类常见自托管入口</h2>
+    <p class="lede">以下按操作方式整理常见入口，不代表税务结果或平台推荐。选择前请同时比较适用地区、KYC、提币支持、合约与钱包风险。</p>
     <div class="opts">
       <div class="opt">
         <span class="tag">CEX + 提币</span>
@@ -344,12 +346,12 @@ summary::after{color:var(--brand)}
       <div class="a">美国没有加入 CRS，而是执行自己的 FATCA 制度，信息交换的方向和范围与 CRS 不同——但这不等于"完全不透明"，两套制度并行存在。</div>
     </details>
     <details>
-      <summary>加密资产会一直在 CRS 之外吗？</summary>
-      <div class="a">不会。OECD 已推出针对加密资产的申报框架 CARF，各辖区正逐步落地，托管型加密服务商将被纳入信息申报。"某类资产完全不透明"的状态在持续收窄，做长期决策时应把这一趋势考虑在内。</div>
+      <summary>加密资产是否完全不涉及自动交换或申报框架？</summary>
+      <div class="a">不是。OECD 已推出针对加密资产交易的 CARF，多个辖区正按各自时间表转化为本地规则。适用范围取决于服务商、交易类型、辖区实施进度及当地法律，不能仅凭"链上"或"自托管"判断。</div>
     </details>
     <details>
       <summary>选自托管钱包是不是就不用报税了？</summary>
-      <div class="a">不是。自托管改变的只是"是否存在机构层面的账户报送"这一条路径；个人申报纳税义务来自税法本身，与持有形式无关。请依法申报，具体问题咨询持牌税务师。</div>
+      <div class="a">不是。自托管可能改变机构账户层面的信息路径，但交易平台、发行商、出入金服务商、链上记录和 CARF 等规则仍可能产生其他数据路径。个人申报纳税义务来自税法本身，与持有形式无关。</div>
     </details>
     <details>
       <summary>信息交换回来之后会发生什么？</summary>
@@ -379,7 +381,7 @@ summary::after{color:var(--brand)}
     <div class="disclaimer">
       <strong>重要提示：</strong>链上股票指南为独立信息科普页面，与文中提及的任何平台均无隶属关系，提及具体平台仅为客观说明，不构成推荐。本页为一般性信息介绍，不构成税务、法律或投资建议；CRS 及 CARF 相关规则以各辖区主管机关的现行规定为准；个人申报纳税义务不因资产持有形式而免除，具体问题请咨询持牌税务师。请在遵守你所在地法律法规的前提下参与相关交易。
     </div>
-    <p>© 2026 链上股票指南 · <a href="./index.html">返回链上美股指南</a></p>
+    <p>© 2026 链上股票指南 · <a href="./index.html">返回链上股票指南</a></p>
   </div>
 </footer>
 

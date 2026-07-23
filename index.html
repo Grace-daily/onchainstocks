@@ -15,6 +15,8 @@
 <title>链上美股是什么？特点、两种类型与各平台对比（2026 指南）| 链上股票指南</title>
 <meta name="description" content="链上美股完整科普：7×24 交易、碎股买入等特点；真实股票（券商代持）与代币化股票（xStocks 等）两种类型的区别；Binance、Kraken、Coinbase、Gate、Crypto.com 等交易所与券商/托管方对接情况对比，以及自托管钱包路径，帮助你选出适合自己的方案。">
 <link rel="canonical" href="https://onchainstocks.guide/">
+<link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
+<link rel="describedby" href="/llms.txt" type="text/plain">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="shortcut icon" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon-180.png">
@@ -176,6 +178,17 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .cinematic-hero .btn-navy{background:#fff;color:#0b2746;box-shadow:0 12px 34px rgba(0,0,0,.24)}
 .cinematic-hero .btn-navy:hover{box-shadow:0 17px 40px rgba(0,0,0,.3)}
 .cinematic-hero .btn-ghost{color:#fff;background:rgba(9,39,70,.38);border-color:rgba(255,255,255,.26);backdrop-filter:blur(14px)}
+.asset-lens{position:absolute;z-index:4;top:clamp(112px,17vh,168px);right:clamp(28px,5vw,84px);width:286px;padding:18px;border:1px solid rgba(163,213,255,.24);border-radius:20px;background:linear-gradient(145deg,rgba(7,31,58,.72),rgba(8,48,88,.42));box-shadow:0 24px 70px rgba(0,0,0,.22);backdrop-filter:blur(18px);color:#fff;opacity:var(--cinema-copy-opacity);transform:translateY(var(--cinema-copy-y));pointer-events:none}
+.asset-lens-kicker{display:flex;align-items:center;gap:8px;margin-bottom:13px;font-family:var(--data);font-size:8px;letter-spacing:.14em;color:rgba(210,235,255,.62)}
+.asset-lens-kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:#73c2ff;box-shadow:0 0 0 5px rgba(115,194,255,.12)}
+.asset-lens-row{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:11px;padding:12px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.055)}
+.asset-lens-row+.asset-lens-row{margin-top:8px}
+.asset-lens-row.accent{border-color:rgba(103,189,255,.28);background:linear-gradient(100deg,rgba(0,128,255,.2),rgba(255,255,255,.055))}
+.asset-lens-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.1);font-family:var(--data);font-size:11px;color:#cce9ff}
+.asset-lens-row.accent .asset-lens-icon{background:#0080ff;color:#fff;box-shadow:0 0 24px rgba(0,128,255,.32)}
+.asset-lens-row b{display:block;font-size:13px;color:#fff}.asset-lens-row small{display:block;margin-top:2px;font-size:10px;color:rgba(218,237,252,.58)}
+.asset-lens-arrow{font-family:var(--data);font-size:14px;color:rgba(180,220,250,.46)}
+.asset-lens-note{margin:12px 2px 0;font-size:10px;line-height:1.6;color:rgba(207,231,249,.55)}
 .cinema-transition{position:absolute;z-index:4;right:clamp(28px,6vw,110px);bottom:clamp(90px,12vh,140px);display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .cinema-transition span{font-family:var(--data);font-size:9px;letter-spacing:.14em;color:rgba(229,242,255,.64)}
 .cinema-transition i{position:relative;width:76px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.2),#72c3ff)}
@@ -191,6 +204,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .cinematic-hero[data-stage="2"] .cinema-transition{opacity:.46;transform:translateY(42px)}
 .cinematic-hero[data-stage="1"] .cinema-scroll,.cinematic-hero[data-stage="2"] .cinema-scroll{opacity:0}
 @media(max-width:900px){.cinematic-hero{min-height:auto}.cinema-stage{position:relative;top:auto;height:auto;min-height:720px}.cinema-media img{object-position:62% center}.cinema-media::before{background:linear-gradient(90deg,rgba(4,18,36,.95),rgba(5,20,39,.64) 64%,rgba(4,18,36,.18)),linear-gradient(0deg,rgba(3,15,30,.72),transparent 50%)}.cinema-stage>.wrap{min-height:720px;align-items:flex-start;padding-top:90px;padding-bottom:160px}.cinematic-hero .hero-copy{max-width:650px}.cinema-transition{right:24px;bottom:86px}.cinema-insight{right:24px;bottom:130px}.cinema-scroll{display:none}}
+@media(max-width:1180px){.asset-lens{display:none}}
 @media(max-width:560px){.cinema-stage,.cinema-stage>.wrap{min-height:760px}.cinematic-hero h1{font-size:clamp(36px,11vw,52px)}.cinematic-hero .hero-lede{font-size:14px}.cinema-media img{object-position:68% center}.cinema-media::before{background:linear-gradient(90deg,rgba(4,18,36,.96),rgba(5,20,39,.72) 78%,rgba(4,18,36,.35)),linear-gradient(0deg,rgba(3,15,30,.78),transparent 54%)}.cinema-transition span:first-child{display:none}.cinema-transition i{width:44px}}
 @media(prefers-reduced-motion:reduce){.cinema-media img{transform:scale(1.04)}.cinema-media::after{display:none}.cinema-scroll i{animation:none}}
 
@@ -548,7 +562,7 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
   <div class="wrap">
     <a class="logo" href="./index.html" aria-label="链上股票指南首页">
       <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="#0080ff" stroke-width="2.5"/><path d="M20.5 11.5 L18 18 L11.5 20.5 L14 14 Z" fill="#005fcc"/><circle cx="16" cy="16" r="1.8" fill="#f5b942"/></svg>
-      <span class="name">链上股票指南</span><span class="en">ONSTOCK GUIDE</span>
+      <span class="name">链上股票指南</span><span class="en">ONCHAIN STOCKS GUIDE</span>
     </a>
     <div class="nav-links">
       <a href="#types">两种类型</a>
@@ -568,7 +582,7 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
     </div>
     <div class="wrap">
       <div class="hero-copy">
-        <span class="kicker"><span class="dot"></span>ONCHAIN STOCKS · 2026</span>
+        <span class="kicker"><span class="dot"></span>ONCHAIN STOCKS GUIDE · 2026</span>
         <h1>链上美股正在兴起。<br>先看懂<mark>你到底买到了什么</mark>。</h1>
         <p class="hero-lede">从券商账户里的真实股票，到个人钱包里的链上代币——同一个股票代码，可能代表完全不同的资产结构。先看懂，再选择。</p>
         <div class="hero-cta">
@@ -577,6 +591,20 @@ tbody tr.star-row:hover{background:rgba(0,128,255,.045)}
         </div>
       </div>
     </div>
+    <aside class="asset-lens" aria-label="同一股票代码可能对应两种不同的资产结构">
+      <div class="asset-lens-kicker">SAME TICKER · DIFFERENT STRUCTURE</div>
+      <div class="asset-lens-row">
+        <span class="asset-lens-icon">FI</span>
+        <span><b>账户权益</b><small>记录在机构账户 · 由券商托管</small></span>
+        <span class="asset-lens-arrow">→</span>
+      </div>
+      <div class="asset-lens-row accent">
+        <span class="asset-lens-icon">0x</span>
+        <span><b>链上代币</b><small>可进入自托管钱包地址</small></span>
+        <span class="asset-lens-arrow">↗</span>
+      </div>
+      <p class="asset-lens-note">先辨认资产结构，再比较平台与持有路径。</p>
+    </aside>
     <div class="market-pulse" id="market-pulse" data-status="loading" aria-live="polite">
       <div class="pulse-head">
         <div class="pulse-head-left"><span>Market pulse</span><button class="market-status-trigger" id="market-status-trigger" type="button" data-session="closed" aria-haspopup="dialog" aria-controls="market-hours-popover" aria-expanded="false"><span class="market-status-dot" aria-hidden="true"></span><span id="market-status-label">美股状态计算中</span><span class="market-status-caret" aria-hidden="true">⌄</span></button></div>

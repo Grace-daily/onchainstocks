@@ -1,0 +1,33 @@
+{
+  "name": "链上股票指南",
+  "name_en": "ONCHAIN STOCKS GUIDE",
+  "url": "https://onchainstocks.guide/",
+  "language": "zh-CN",
+  "description": "链上股票、代币化股票、真实股票、平台结构、自托管钱包与 CRS/CARF 信息路径的独立教育性指南。",
+  "updated": "2026-07-23",
+  "pages": [
+    {
+      "title": "链上股票指南",
+      "url": "https://onchainstocks.guide/",
+      "topics": [
+        "链上股票",
+        "代币化股票",
+        "真实股票",
+        "平台对比",
+        "自托管钱包"
+      ]
+    },
+    {
+      "title": "CRS 与链上股票",
+      "url": "https://onchainstocks.guide/crs",
+      "topics": [
+        "CRS",
+        "CARF",
+        "金融账户信息交换",
+        "托管结构",
+        "个人申报义务"
+      ]
+    }
+  ],
+  "disclaimer": "本站内容仅供一般性教育参考，不构成税务、法律或投资建议。"
+}
