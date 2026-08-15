@@ -1,18 +1,18 @@
 {
   "source": "Get Real Stocks",
   "sourceUrl": "https://getrealstocks.com/",
-  "updatedAt": "2026-08-15T04:45:46.362Z",
+  "updatedAt": "2026-08-15T08:44:06.186Z",
   "metrics": [
     {
       "id": "spot",
       "label": "现货成交量 · 24H",
-      "value": "$254.1M",
+      "value": "$232.5M",
       "changePct": 53.5
     },
     {
       "id": "perp",
       "label": "合约成交量 · 24H",
-      "value": "$28.2B",
+      "value": "$24.9B",
       "changePct": -5.72
     },
     {
