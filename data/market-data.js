@@ -1,25 +1,25 @@
 window.__MARKET_DATA__ = {
   "source": "Get Real Stocks",
   "sourceUrl": "https://getrealstocks.com/",
-  "updatedAt": "2026-09-03T22:33:21.203Z",
+  "updatedAt": "2026-09-04T04:29:12.192Z",
   "metrics": [
     {
       "id": "spot",
       "label": "现货成交量 · 24H",
-      "value": "$271.2M",
-      "changePct": -43.12
+      "value": "$276.9M",
+      "changePct": -42.65
     },
     {
       "id": "perp",
       "label": "合约成交量 · 24H",
-      "value": "$25.8B",
-      "changePct": -44.21
+      "value": "$25.9B",
+      "changePct": -42.27
     },
     {
       "id": "oi",
       "label": "未平仓量 · 全市场",
-      "value": "$8B",
-      "changePct": 11.28
+      "value": "$7.6B",
+      "changePct": 13.35
     }
   ]
 };
