@@ -1,25 +1,25 @@
 {
   "source": "Get Real Stocks",
   "sourceUrl": "https://getrealstocks.com/",
-  "updatedAt": "2026-11-12T07:05:52.546Z",
+  "updatedAt": "2026-11-12T16:46:36.581Z",
   "metrics": [
     {
       "id": "spot",
       "label": "现货成交量 · 24H",
-      "value": "$718.5M",
-      "changePct": 73.13
+      "value": "$867.3M",
+      "changePct": 77.26
     },
     {
       "id": "perp",
       "label": "合约成交量 · 24H",
-      "value": "$42.9B",
-      "changePct": 203.67
+      "value": "$51.9B",
+      "changePct": 212.89
     },
     {
       "id": "oi",
       "label": "未平仓量 · 全市场",
-      "value": "$8.6B",
-      "changePct": 32.94
+      "value": "$9.4B",
+      "changePct": 33.01
     }
   ]
 }
